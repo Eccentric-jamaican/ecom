@@ -12,6 +12,8 @@
 - Decided on Bun as package manager
 - Updated PRD and README to reflect Bun as the package manager
 - Established monorepo scaffold (apps/web, packages/*, root turbo config)
+- Initialized Convex in `apps/web` and added the PRD-backed schema
+- Set up Clerk base integration (`@clerk/nextjs`, `src/proxy.ts`, sign-in/sign-up routes)
 - Created agent memory system structure
 
 ### Key Decisions
@@ -47,7 +49,6 @@
 - **AI:** Multi-agent system for intelligent product discovery
 
 ### Ready To Start
-- Turborepo monorepo initialization
-- Convex project setup
-- Clerk authentication integration
+- Finish Clerk setup (create Clerk project + add env vars)
+- Wire Convex client into Next.js app
 - Core UI components (ProductCard, Carousel, ChatInterface)
