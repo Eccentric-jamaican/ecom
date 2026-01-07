@@ -10,13 +10,12 @@
 - Defined eBay carousel design system specifications
 - Selected Zod for runtime validation
 - Decided on Bun as package manager
-- Fixed monorepo layout by moving the app into `apps/web` and creating root workspace config
-- Initialized Convex in `apps/web` via `bunx convex dev` (created project + .env.local)
-- Added `apps/web/convex/schema.ts` based on PRD tables
+- Updated PRD and README to reflect Bun as the package manager
+- Established monorepo scaffold (apps/web, packages/*, root turbo config)
 - Created agent memory system structure
 
 ### Key Decisions
-1. **Package Manager:** Bun over PNPM (developer preference)
+1. **Package Manager:** Bun (developer preference)
 2. **Validation:** Zod + Convex dual validation approach
 3. **UI Pattern:** Horizontal carousels (eBay spec) not vertical grids
 4. **Agent Architecture:** Multi-stage (Planning → Action → Validation → Answer)

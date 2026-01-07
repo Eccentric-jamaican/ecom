@@ -1,41 +1,6 @@
 # Completed Tasks Log
 
-## 2026-01-07 - Initialize Convex project
-
-**Status:** Completed
-**Files Modified/Created:**
-- `apps/web/convex/*`
-- `apps/web/.env.local`
-
-**Summary:**
-Ran `bunx convex dev` to create a Convex project and dev deployment, generating the Convex functions directory and local environment variables.
-
-**Key Decisions:**
-- Use Convex cloud dev deployment for now.
-
-**Next Steps:**
-- Add `apps/web/convex/schema.ts` based on PRD and restart `bunx convex dev`.
-
----
-
-## 2026-01-07 - Add Convex schema
-
-**Status:** Completed
-**Files Modified/Created:**
-- `apps/web/convex/schema.ts`
-
-**Summary:**
-Implemented the Convex database schema from the PRD, including core tables and indexes.
-
-**Key Decisions:**
-- Kept flexible fields (`filters`, `properties`) as `v.record(v.string(), v.any())` to support evolving payloads.
-
-**Next Steps:**
-- Restart `bunx convex dev` in `apps/web` to push the schema.
-
----
-
-## 2026-01-07 - Fix monorepo layout
+## 2026-01-07 - Monorepo scaffolding
 
 **Status:** Completed
 **Files Modified/Created:**
@@ -49,14 +14,32 @@ Implemented the Convex database schema from the PRD, including core tables and i
 - `packages/config/*`
 
 **Summary:**
-Moved the existing Next.js app into `apps/web`, restored root workspace configs, and recreated shared package stubs.
+Moved the existing Next.js app into `apps/web`, created root workspace configs, and stubbed shared package directories.
 
 **Key Decisions:**
-- Keep `bun.lock` and `node_modules` at repo root for the workspace.
+- Use Turborepo at the repo root with Bun workspaces.
 
 **Next Steps:**
-- Run `bun install` from repo root to refresh workspace dependencies
+- Run `bun install` to refresh workspace dependencies
 - Verify `bun run dev` works from repo root
+
+---
+
+## 2026-01-07 - Update package manager references
+
+**Status:** Completed
+**Files Modified:**
+- `PRD.md`
+- `README.md`
+
+**Summary:**
+Standardized documentation on Bun as the package manager and removed PNPM references.
+
+**Key Decisions:**
+- Bun is the only documented package manager for this repo.
+
+**Next Steps:**
+- None
 
 ---
 
