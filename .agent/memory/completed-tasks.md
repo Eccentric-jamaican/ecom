@@ -1,5 +1,48 @@
 # Completed Tasks Log
 
+## 2026-01-07 - Monorepo scaffolding
+
+**Status:** Completed
+**Files Modified/Created:**
+- `package.json`
+- `turbo.json`
+- `tsconfig.json`
+- `README.md`
+- `apps/web/*` (moved app files)
+- `packages/shared/*`
+- `packages/ui/*`
+- `packages/config/*`
+
+**Summary:**
+Moved the existing Next.js app into `apps/web`, created root workspace configs, and stubbed shared package directories.
+
+**Key Decisions:**
+- Use Turborepo at the repo root with Bun workspaces.
+
+**Next Steps:**
+- Run `bun install` to refresh workspace dependencies
+- Verify `bun run dev` works from repo root
+
+---
+
+## 2026-01-07 - Update package manager references
+
+**Status:** Completed
+**Files Modified:**
+- `PRD.md`
+- `README.md`
+
+**Summary:**
+Standardized documentation on Bun as the package manager and removed PNPM references.
+
+**Key Decisions:**
+- Bun is the only documented package manager for this repo.
+
+**Next Steps:**
+- None
+
+---
+
 ## 2026-01-07 - Initial Setup
 
 ### Task: Create comprehensive PRD

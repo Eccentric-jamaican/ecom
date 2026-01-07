@@ -61,10 +61,9 @@
 | Responsive | Fluid (clamp()) | - | Scales without breakpoints |
 | Carousels | eBay Design System | - | Horizontal scroll, industry standard |
 
-## Package Manager Change Note
+## Package Manager
 
-**Originally planned:** PNPM
-**Changed to:** Bun
+**Choice:** Bun
 
 **Reason:** Developer preference for faster installs and better monorepo support with Bun.
 
