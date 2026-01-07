@@ -10,6 +10,9 @@
 - Defined eBay carousel design system specifications
 - Selected Zod for runtime validation
 - Decided on Bun as package manager
+- Fixed monorepo layout by moving the app into `apps/web` and creating root workspace config
+- Initialized Convex in `apps/web` via `bunx convex dev` (created project + .env.local)
+- Added `apps/web/convex/schema.ts` based on PRD tables
 - Created agent memory system structure
 
 ### Key Decisions
