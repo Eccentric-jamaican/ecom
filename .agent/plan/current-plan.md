@@ -4,10 +4,10 @@
 
 ## Current Phase (1-2 days)
 
-### 1.1 Initialize Turborepo + Bun Monorepo Structure
-- [ ] Create `apps/web` Next.js 16 application
-- [ ] Create `packages/shared` for shared types/utilities
-- [ ] Configure `turbo.json`
+### 1.1 Initialize Turborepo + Bun Monorepo Structure    
+- [x] Create `apps/web` Next.js 16 application
+- [x] Create `packages/shared` for shared types/utilities
+- [x] Configure `turbo.json`
 
 ### 1.2 Set Up Convex Project
 - [ ] Run `npx convex dev` to create deployment

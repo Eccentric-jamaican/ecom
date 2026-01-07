@@ -49,7 +49,7 @@ Sendcat uses a **monorepo architecture** to share code between the web applicati
 │   ┌─────────────────────────────────────────────────────────────┐   │
 │   │                        Root Configuration                    │   │
 │   │   • Turborepo (build orchestration)                         │   │
-│   │   • PNPM (package manager)                                  │   │
+│   │   • Bun (package manager)                                   │   │
 │   │   • TypeScript (shared config)                              │   │
 │   │   • ESLint (shared linting)                                 │   │
 │   └─────────────────────────────────────────────────────────────┘   │
@@ -203,7 +203,7 @@ send-cat/
 │           └── react.json
 │
 ├── package.json                      # Root workspace
-├── pnpm-workspace.yaml               # PNPM workspaces
+├── bun.lockb                         # Bun lockfile
 ├── turbo.json                        # Turborepo config
 ├── .env.example                      # Environment template
 └── README.md
@@ -211,10 +211,10 @@ send-cat/
 
 ### 2.3 Package Manager & Build System
 
-**PNPM** is chosen as the package manager for its:
-- Disk efficiency (shared node_modules)
-- Faster installations
-- Strict workspace protocol
+**Bun** is chosen as the package manager for its:
+- Fast installs and runtime
+- Built-in workspace support
+- Simple lockfile (`bun.lockb`)
 
 **Turborepo** provides:
 - Intelligent build caching
@@ -239,8 +239,7 @@ send-cat/
     "typecheck": "turbo run typecheck"
   },
   "devDependencies": {
-    "turbo": "^2.0.0",
-    "pnpm": "^9.0.0"
+    "turbo": "^2.0.0"
   }
 }
 ```
