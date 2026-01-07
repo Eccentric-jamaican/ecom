@@ -10,8 +10,8 @@
 - [x] Configure `turbo.json`
 
 ### 1.2 Set Up Convex Project
-- [ ] Run `npx convex dev` to create deployment
-- [ ] Configure `convex/schema.ts` with tables from PRD
+- [x] Run `bunx convex dev` to create deployment
+- [x] Configure `convex/schema.ts` with tables from PRD  
 - [ ] Set up environment variables
 
 ### 1.3 Configure Clerk Authentication
