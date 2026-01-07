@@ -32,9 +32,13 @@ export default function RootLayout({
   return (
     <ClerkProvider>
       <html lang="en" className={`${inter.variable} ${interTight.variable}`}>
+<<<<<<< HEAD
         <body className="font-sans antialiased">
           <ConvexClientProvider>{children}</ConvexClientProvider>
         </body>
+=======
+        <body className="font-sans antialiased">{children}</body>
+>>>>>>> 76df268f140c42b3ed568b23b9320dc9753e37f2
       </html>
     </ClerkProvider>
   );

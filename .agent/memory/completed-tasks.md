@@ -1,5 +1,6 @@
 # Completed Tasks Log
 
+<<<<<<< HEAD
 ## 2026-01-07 - Integrate Convex auth with Clerk
 
 **Status:** Completed
@@ -13,6 +14,86 @@ Added Convex auth config for Clerk and wrapped the app in `ConvexProviderWithCle
 
 **Next Steps:**
 - Create a Clerk JWT template named `convex` and set `CLERK_JWT_ISSUER_DOMAIN` in `apps/web/.env.local`.
+=======
+## 2026-01-07 - Set up Clerk base integration
+
+**Status:** Completed
+**Files Modified/Created:**
+- `apps/web/package.json`
+- `apps/web/src/app/layout.tsx`
+- `apps/web/src/proxy.ts`
+- `apps/web/src/app/sign-in/[[...sign-in]]/page.tsx`
+- `apps/web/src/app/sign-up/[[...sign-up]]/page.tsx`
+
+**Summary:**
+Installed `@clerk/nextjs`, added ClerkProvider to the root layout, created the proxy middleware file for Next.js 16, and added sign-in/sign-up routes.
+
+**Key Decisions:**
+- Use `src/proxy.ts` per Next.js 16 middleware rename.
+
+**Next Steps:**
+- Create a Clerk project and add `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` / `CLERK_SECRET_KEY` to `apps/web/.env.local`.
+
+---
+
+## 2026-01-07 - Add Convex schema
+
+**Status:** Completed
+**Files Modified/Created:**
+- `apps/web/convex/schema.ts`
+
+**Summary:**
+Implemented the Convex database schema from the PRD, including core tables and indexes.
+
+**Key Decisions:**
+- Kept flexible fields (`filters`, `properties`) as `v.record(v.string(), v.any())` to support evolving payloads.
+
+**Next Steps:**
+- Run `bunx convex dev` in `apps/web` to push the schema.
+
+---
+
+## 2026-01-07 - Initialize Convex project
+
+**Status:** Completed
+**Files Modified/Created:**
+- `apps/web/convex/*`
+- `apps/web/.env.local`
+
+**Summary:**
+Ran `bunx convex dev` to create a Convex project and dev deployment, generating the Convex functions directory and local environment variables.
+
+**Key Decisions:**
+- Use Convex cloud dev deployment for now.
+
+**Next Steps:**
+- Add `apps/web/convex/schema.ts` based on PRD and restart `bunx convex dev`.
+
+---
+
+## 2026-01-07 - Fix monorepo layout
+
+**Status:** Completed
+**Files Modified/Created:**
+- `package.json`
+- `turbo.json`
+- `tsconfig.json`
+- `README.md`
+- `apps/web/*` (moved app files)
+- `packages/shared/*`
+- `packages/ui/*`
+- `packages/config/*`
+
+**Summary:**
+Moved the existing Next.js app into `apps/web`, restored root workspace configs, and recreated shared package stubs.
+
+**Key Decisions:**
+- Keep `bun.lock` and `node_modules` at repo root for the workspace.
+
+**Next Steps:**
+- Run `bun install` from repo root to refresh workspace dependencies
+- Verify `bun run dev` works from repo root
+>>>>>>> 76df268f140c42b3ed568b23b9320dc9753e37f2
 
 ---
 
