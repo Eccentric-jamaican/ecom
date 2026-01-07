@@ -1,9 +1,39 @@
 # Completed Tasks Log
 
+## 2026-01-07 - Foundation Phase Configuration
+
+**Status:** Completed (Partial Scope)
+**Files Changed:**
+
+- `apps/web/.env.local`
+- `apps/web/package.json`
+- `apps/web/bun.lockb`
+
+**Summary:**
+Configured the foundation layer for `apps/web` with Authentication and AI capabilities.
+
+- Verified Clerk Authentication (handled via `proxy.ts`).
+- Installed Vercel AI SDK (`ai` + `@ai-sdk/openai`).
+- Configured Environment Variables (`OPENROUTER_API_KEY`).
+
+**Key Decisions:**
+
+- **Proxy vs Middleware:** Respected Next.js 16 / user preference for `proxy.ts` over `middleware.ts`.
+- **Architecture:** Confirmed Vercel AI SDK + OpenRouter as the standard architecture for generative UI text streaming.
+- **Scope:** Deferred creating the Chat Route/UI components as per user request to "only install and place env variables".
+
+**Next Steps:**
+
+- Create Chat API Route (`api/chat/route.ts`).
+- Build core UI components.
+
+---
+
 ## 2026-01-07 - Fix Next.js 16 proxy conflict + layout merge conflict
 
 **Status:** Completed
 **Files Modified/Removed:**
+
 - `apps/web/src/app/layout.tsx`
 - `apps/web/src/middleware.ts` (removed)
 - `apps/web/src/proxy.ts` (kept)
@@ -17,6 +47,7 @@ Removed the deprecated middleware file to satisfy the Next.js 16 proxy conventio
 
 **Status:** Completed
 **Files Modified/Created:**
+
 - `apps/web/convex/auth.config.ts`
 - `apps/web/src/components/ConvexClientProvider.tsx`
 - `apps/web/src/app/layout.tsx`
@@ -25,6 +56,7 @@ Removed the deprecated middleware file to satisfy the Next.js 16 proxy conventio
 Added Convex auth config for Clerk and wrapped the app in `ConvexProviderWithClerk` via a client provider component.
 
 **Next Steps:**
+
 - Create a Clerk JWT template named `convex` and set `CLERK_JWT_ISSUER_DOMAIN` in `apps/web/.env.local`.
 
 ---
@@ -33,6 +65,7 @@ Added Convex auth config for Clerk and wrapped the app in `ConvexProviderWithCle
 
 **Status:** Completed
 **Files Modified/Created:**
+
 - `apps/web/package.json`
 - `apps/web/src/app/layout.tsx`
 - `apps/web/src/proxy.ts`
@@ -43,9 +76,11 @@ Added Convex auth config for Clerk and wrapped the app in `ConvexProviderWithCle
 Installed `@clerk/nextjs`, added `ClerkProvider` to the root layout, created the proxy file for Next.js 16, and added sign-in/sign-up routes.
 
 **Key Decisions:**
+
 - Use `src/proxy.ts` per Next.js 16 middleware rename.
 
 **Next Steps:**
+
 - Create a Clerk project and add `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` / `CLERK_SECRET_KEY` to `apps/web/.env.local`.
 
 ---
@@ -54,15 +89,18 @@ Installed `@clerk/nextjs`, added `ClerkProvider` to the root layout, created the
 
 **Status:** Completed
 **Files Modified/Created:**
+
 - `apps/web/convex/schema.ts`
 
 **Summary:**
 Implemented the Convex database schema from the PRD, including core tables and indexes.
 
 **Key Decisions:**
+
 - Kept flexible fields (`filters`, `properties`) as `v.record(v.string(), v.any())` to support evolving payloads.
 
 **Next Steps:**
+
 - Run `bunx convex dev` in `apps/web` to push the schema.
 
 ---
@@ -71,6 +109,7 @@ Implemented the Convex database schema from the PRD, including core tables and i
 
 **Status:** Completed
 **Files Modified/Created:**
+
 - `apps/web/convex/*`
 - `apps/web/.env.local`
 
@@ -78,9 +117,11 @@ Implemented the Convex database schema from the PRD, including core tables and i
 Ran `bunx convex dev` to create a Convex project and dev deployment, generating the Convex functions directory and local environment variables.
 
 **Key Decisions:**
+
 - Use Convex cloud dev deployment for now.
 
 **Next Steps:**
+
 - Add `apps/web/convex/schema.ts` based on PRD and restart `bunx convex dev`.
 
 ---
@@ -89,6 +130,7 @@ Ran `bunx convex dev` to create a Convex project and dev deployment, generating 
 
 **Status:** Completed
 **Files Modified/Created:**
+
 - `package.json`
 - `turbo.json`
 - `tsconfig.json`
@@ -102,9 +144,11 @@ Ran `bunx convex dev` to create a Convex project and dev deployment, generating 
 Moved the existing Next.js app into `apps/web`, restored root workspace configs, and recreated shared package stubs.
 
 **Key Decisions:**
+
 - Keep `bun.lock` and `node_modules` at repo root for the workspace.
 
 **Next Steps:**
+
 - Run `bun install` from repo root to refresh workspace dependencies
 - Verify `bun run dev` works from repo root
 
@@ -114,6 +158,7 @@ Moved the existing Next.js app into `apps/web`, restored root workspace configs,
 
 **Status:** Completed
 **Files Modified:**
+
 - `PRD.md`
 - `README.md`
 
@@ -121,9 +166,11 @@ Moved the existing Next.js app into `apps/web`, restored root workspace configs,
 Standardized documentation on Bun as the package manager and removed PNPM references.
 
 **Key Decisions:**
+
 - Bun is the only documented package manager for this repo.
 
 **Next Steps:**
+
 - None
 
 ---
@@ -131,12 +178,15 @@ Standardized documentation on Bun as the package manager and removed PNPM refere
 ## 2026-01-07 - Initial setup
 
 ### Task: Create comprehensive PRD
+
 **Status:** Completed
 **Files Created:**
+
 - `PRD.md` (134KB, 3,200+ lines)
 
 **Summary:**
 Created full product requirements document covering:
+
 - Executive summary and value proposition
 - Monorepo architecture with Turborepo
 - Technical stack (Next.js, Convex, Clerk, OpenRouter, Inngest)
@@ -150,6 +200,7 @@ Created full product requirements document covering:
 - Development roadmap (3 phases)
 
 **Key Decisions:**
+
 - Used Bun as package manager
 - Chose horizontal carousels over vertical grids
 - Adopted Zod + Convex dual validation
@@ -158,12 +209,15 @@ Created full product requirements document covering:
 ---
 
 ### Task: Configure fonts and typography
+
 **Status:** Completed
 **Files Modified:**
+
 - `src/app/layout.tsx`
 - `src/app/globals.css`
 
 **Summary:**
+
 - Added Inter and Inter Tight fonts via `next/font`
 - Implemented fluid typography with CSS clamp() variables
 - Defined responsive typography scale (H1-H3, body, price)
@@ -171,8 +225,10 @@ Created full product requirements document covering:
 ---
 
 ### Task: Create agent filesystem.md
+
 **Status:** Completed
 **Files Created:**
+
 - `.agent/filesystem.md`
 - `.agent/plan/current-plan.md`
 - `.agent/memory/current-summary.md`
@@ -180,6 +236,7 @@ Created full product requirements document covering:
 
 **Summary:**
 Created comprehensive filesystem memory system with:
+
 - Mandatory start-of-turn procedure
 - Project context and conventions
 - External tool documentation guidelines (web search requirement)
