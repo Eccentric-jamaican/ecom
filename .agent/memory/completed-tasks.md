@@ -1,6 +1,18 @@
 # Completed Tasks Log
 
-<<<<<<< HEAD
+## 2026-01-07 - Fix Next.js 16 proxy conflict + layout merge conflict
+
+**Status:** Completed
+**Files Modified/Removed:**
+- `apps/web/src/app/layout.tsx`
+- `apps/web/src/middleware.ts` (removed)
+- `apps/web/src/proxy.ts` (kept)
+
+**Summary:**
+Removed the deprecated middleware file to satisfy the Next.js 16 proxy convention and resolved the root layout merge conflict while keeping `ConvexClientProvider`.
+
+---
+
 ## 2026-01-07 - Integrate Convex auth with Clerk
 
 **Status:** Completed
@@ -14,7 +26,9 @@ Added Convex auth config for Clerk and wrapped the app in `ConvexProviderWithCle
 
 **Next Steps:**
 - Create a Clerk JWT template named `convex` and set `CLERK_JWT_ISSUER_DOMAIN` in `apps/web/.env.local`.
-=======
+
+---
+
 ## 2026-01-07 - Set up Clerk base integration
 
 **Status:** Completed
@@ -26,7 +40,7 @@ Added Convex auth config for Clerk and wrapped the app in `ConvexProviderWithCle
 - `apps/web/src/app/sign-up/[[...sign-up]]/page.tsx`
 
 **Summary:**
-Installed `@clerk/nextjs`, added ClerkProvider to the root layout, created the proxy middleware file for Next.js 16, and added sign-in/sign-up routes.
+Installed `@clerk/nextjs`, added `ClerkProvider` to the root layout, created the proxy file for Next.js 16, and added sign-in/sign-up routes.
 
 **Key Decisions:**
 - Use `src/proxy.ts` per Next.js 16 middleware rename.
@@ -93,50 +107,6 @@ Moved the existing Next.js app into `apps/web`, restored root workspace configs,
 **Next Steps:**
 - Run `bun install` from repo root to refresh workspace dependencies
 - Verify `bun run dev` works from repo root
->>>>>>> 76df268f140c42b3ed568b23b9320dc9753e37f2
-
----
-
-## 2026-01-07 - Monorepo scaffolding
-
-**Status:** Completed
-**Files Modified/Created:**
-- `package.json`
-- `turbo.json`
-- `tsconfig.json`
-- `README.md`
-- `apps/web/*` (moved app files)
-- `packages/shared/*`
-- `packages/ui/*`
-- `packages/config/*`
-
-**Summary:**
-Moved the existing Next.js app into `apps/web`, created root workspace configs, and stubbed shared package directories.
-
-**Key Decisions:**
-- Use Turborepo at the repo root with Bun workspaces.
-
-**Next Steps:**
-- Run `bun install` to refresh workspace dependencies
-- Verify `bun run dev` works from repo root
-
----
-
-## 2026-01-07 - Set up Clerk base integration (reapplied)
-
-**Status:** Completed
-**Files Modified/Created:**
-- `apps/web/package.json`
-- `apps/web/src/app/layout.tsx`
-- `apps/web/src/middleware.ts`
-- `apps/web/src/app/sign-in/[[...sign-in]]/page.tsx`
-- `apps/web/src/app/sign-up/[[...sign-up]]/page.tsx`
-
-**Summary:**
-Reapplied Clerk base integration after it was removed during git cleanup. Added ClerkProvider, middleware, and auth routes.
-
-**Next Steps:**
-- Create a Clerk project and add `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` / `CLERK_SECRET_KEY` to `apps/web/.env.local`.
 
 ---
 
@@ -158,7 +128,7 @@ Standardized documentation on Bun as the package manager and removed PNPM refere
 
 ---
 
-## 2026-01-07 - Initial Setup
+## 2026-01-07 - Initial setup
 
 ### Task: Create comprehensive PRD
 **Status:** Completed
