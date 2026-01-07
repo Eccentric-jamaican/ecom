@@ -1,5 +1,21 @@
 # Completed Tasks Log
 
+## 2026-01-07 - Integrate Convex auth with Clerk
+
+**Status:** Completed
+**Files Modified/Created:**
+- `apps/web/convex/auth.config.ts`
+- `apps/web/src/components/ConvexClientProvider.tsx`
+- `apps/web/src/app/layout.tsx`
+
+**Summary:**
+Added Convex auth config for Clerk and wrapped the app in `ConvexProviderWithClerk` via a client provider component.
+
+**Next Steps:**
+- Create a Clerk JWT template named `convex` and set `CLERK_JWT_ISSUER_DOMAIN` in `apps/web/.env.local`.
+
+---
+
 ## 2026-01-07 - Monorepo scaffolding
 
 **Status:** Completed
@@ -22,6 +38,24 @@ Moved the existing Next.js app into `apps/web`, created root workspace configs, 
 **Next Steps:**
 - Run `bun install` to refresh workspace dependencies
 - Verify `bun run dev` works from repo root
+
+---
+
+## 2026-01-07 - Set up Clerk base integration (reapplied)
+
+**Status:** Completed
+**Files Modified/Created:**
+- `apps/web/package.json`
+- `apps/web/src/app/layout.tsx`
+- `apps/web/src/middleware.ts`
+- `apps/web/src/app/sign-in/[[...sign-in]]/page.tsx`
+- `apps/web/src/app/sign-up/[[...sign-up]]/page.tsx`
+
+**Summary:**
+Reapplied Clerk base integration after it was removed during git cleanup. Added ClerkProvider, middleware, and auth routes.
+
+**Next Steps:**
+- Create a Clerk project and add `NEXT_PUBLIC_CLERK_PUBLISHABLE_KEY` / `CLERK_SECRET_KEY` to `apps/web/.env.local`.
 
 ---
 

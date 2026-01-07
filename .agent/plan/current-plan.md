@@ -16,8 +16,8 @@
 
 ### 1.3 Configure Clerk Authentication
 - [ ] Create Clerk project
-- [ ] Add `auth.ts` middleware
-- [ ] Wrap app in `<ClerkProvider>`
+- [x] Add proxy (Clerk middleware) for Next.js 16
+- [x] Wrap app in `<ClerkProvider>`
 
 ### 1.4 Set Up Vercel AI SDK + OpenRouter
 - [ ] Configure `OPENROUTER_API_KEY`
