@@ -15,8 +15,12 @@ export function Footer() {
               Your one-stop destination for premium quality products. We believe in quality, style, and customer satisfaction above all else.
             </p>
             <div className="flex gap-4">
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors"><i className="material-symbols-outlined">public</i></Link>
-              <Link href="#" className="text-gray-400 hover:text-primary transition-colors"><i className="material-symbols-outlined">alternate_email</i></Link>
+              <Link href="#" className="text-gray-400 hover:text-primary transition-colors" aria-label="Official Website">
+                <i className="material-symbols-outlined">public</i>
+              </Link>
+              <Link href="#" className="text-gray-400 hover:text-primary transition-colors" aria-label="Email Us">
+                <i className="material-symbols-outlined">alternate_email</i>
+              </Link>
             </div>
           </div>
 
@@ -54,7 +58,7 @@ export function Footer() {
         </div>
 
         <div className="border-t border-slate-100 dark:border-[#333] pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-          <p className="text-sm text-gray-400 text-center md:text-left">© 2024 LuxeStore Inc. All rights reserved.</p>
+          <p className="text-sm text-gray-400 text-center md:text-left">© {new Date().getFullYear()} LuxeStore Inc. All rights reserved.</p>
           <div className="flex gap-4 opacity-70">
             <div className="h-6 w-10 bg-gray-200 dark:bg-[#444] rounded"></div>
             <div className="h-6 w-10 bg-gray-200 dark:bg-[#444] rounded"></div>

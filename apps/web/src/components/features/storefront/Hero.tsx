@@ -1,4 +1,6 @@
 import Image from 'next/image';
+import Link from 'next/link';
+import { Button } from '@/components/ui/button';
 
 export function Hero() {
   return (
@@ -18,19 +20,19 @@ export function Hero() {
           <div className="inline-flex items-center rounded-full bg-white/20 px-3 py-1 text-xs font-medium text-white backdrop-blur-sm border border-white/10">
             New Season Arrivals
           </div>
-          <h1 className="text-4xl font-extrabold leading-tight tracking-tight text-white lg:text-6xl">
-            Summer <span className="text-primary">Collection</span> 2024
+          <h1 className="text-h1 font-extrabold leading-tight tracking-tight text-white">
+            Summer <span className="text-primary">Collection</span> {new Date().getFullYear()}
           </h1>
-          <p className="text-lg text-gray-200 font-medium max-w-md">
+          <p className="text-body text-gray-200 font-medium max-w-md">
             Discover the warmth of the season with our latest curated styles designed for comfort and elegance.
           </p>
           <div className="flex gap-4 mt-2">
-            <button className="flex items-center justify-center rounded-lg bg-primary hover:bg-primary/90 transition-all text-white font-bold h-12 px-8 shadow-lg hover:shadow-primary/30">
-              Shop Now
-            </button>
-            <button className="flex items-center justify-center rounded-lg bg-white/10 hover:bg-white/20 backdrop-blur-sm transition-all text-white font-bold h-12 px-8 border border-white/30">
-              View Lookbook
-            </button>
+            <Button asChild size="lg" className="bg-primary hover:bg-primary/90 text-white font-bold px-8 shadow-lg hover:shadow-primary/30">
+              <Link href="/shop">Shop Now</Link>
+            </Button>
+            <Button asChild size="lg" variant="outline" className="bg-white/10 hover:bg-white/20 backdrop-blur-sm text-white font-bold px-8 border-white/30">
+              <Link href="/lookbook">View Lookbook</Link>
+            </Button>
           </div>
         </div>
       </div>

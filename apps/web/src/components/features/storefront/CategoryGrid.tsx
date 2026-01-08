@@ -14,8 +14,8 @@ export function CategoryGrid() {
   return (
     <section className="mb-16">
       <div className="flex items-center justify-between mb-8 px-2">
-        <h2 className="text-2xl font-bold text-[#181411] dark:text-white">Shop by Category</h2>
-        <Link href="#" className="text-primary font-bold text-sm hover:underline flex items-center gap-1">
+        <h2 className="text-h2 font-semibold leading-tight text-[#181411] dark:text-white">Shop by Category</h2>
+        <Link href="#" className="text-primary font-bold text-sm-fluid hover:underline flex items-center gap-1">
           View All <span className="material-symbols-outlined text-sm">arrow_forward</span>
         </Link>
       </div>
@@ -32,7 +32,7 @@ export function CategoryGrid() {
                 />
               </div>
             </div>
-            <p className="text-[#181411] dark:text-white font-semibold group-hover:text-primary transition-colors">
+            <p className="text-body font-semibold text-[#181411] dark:text-white group-hover:text-primary transition-colors">
               {cat.name}
             </p>
           </Link>
