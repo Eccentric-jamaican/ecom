@@ -1,5 +1,138 @@
 # Completed Tasks Log
 
+## 2026-01-08 - Scaffold Expo mobile app + share Convex bindings
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/mobile/*` (Expo Router app scaffold)
+- `apps/mobile/metro.config.js`
+- `apps/mobile/global.css`
+- `apps/mobile/uniwind-types.d.ts`
+- `apps/mobile/lib/convex.ts`
+- `apps/mobile/.env`
+- `convex/*` (moved from `apps/web/convex`)
+- `packages/convex/*`
+- `.gitignore`
+- `README.md`
+
+**Summary:**
+Created `apps/mobile` using Expo Router + TypeScript, wired Uniwind for Tailwind
+bindings, added a Convex client provider, and moved the Convex backend to the
+repo root with a shared `@sendcat/convex` package for bindings.
+
+**Key Decisions:**
+- Use root `convex/` folder as the single source of truth.
+- Use `@sendcat/convex` workspace package to share generated types.
+- Configure Expo Metro + Uniwind for monorepo watchFolders.
+
+**Next Steps:**
+- Set `EXPO_PUBLIC_CONVEX_URL` in `apps/mobile/.env`.
+- Run `bun --cwd apps/mobile dev` and verify iOS/Android.
+- If/when ready, add Clerk Expo SDK + Convex auth on mobile.
+
+---
+
+## 2026-01-08 - Add Clerk Expo + Convex auth integration
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/mobile/app/_layout.tsx`
+- `apps/mobile/.env`
+- `apps/mobile/package.json`
+- `apps/mobile/bun.lockb`
+
+**Summary:**
+Installed the Clerk Expo SDK and secure token caching, then wrapped the Expo
+root layout with `ClerkProvider` + `ConvexProviderWithClerk` using `useAuth` from
+`@clerk/clerk-expo`.
+
+**Next Steps:**
+- Set `EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY` in `apps/mobile/.env`.
+- Run `bun --cwd apps/mobile dev` to confirm auth initialization.
+
+---
+
+## 2026-01-08 - Compile workspace packages for maintainability
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `packages/convex/package.json`
+- `packages/convex/tsconfig.json`
+- `packages/convex/tsconfig.build.json`
+- `packages/shared/package.json`
+- `packages/shared/tsconfig.build.json`
+- `packages/ui/package.json`
+- `packages/ui/tsconfig.build.json`
+- `package.json`
+- `bun.lock`
+
+**Summary:**
+Converted internal workspace packages to build into `dist/` with `main/types`
+pointing at compiled outputs and added ESM `exports` fields. Added per-package
+build configs and a root TypeScript dev dependency to stabilize builds.
+
+**Next Steps:**
+- Run `bun run build` (or `bunx turbo run build`) to emit `dist/` artifacts when needed.
+
+---
+
+## 2026-01-08 - Align IconSymbol props across platforms
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/ui/icon-symbol.tsx`
+
+**Summary:**
+Matched Android/web IconSymbol prop types to the iOS variant by using `string`
+color, `StyleProp<ViewStyle>`, and keeping `weight` in the signature for API
+consistency.
+
+---
+
+## 2026-01-08 - Allow OpaqueColorValue in iOS IconSymbol
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/ui/icon-symbol.ios.tsx`
+
+**Summary:**
+Extended the iOS IconSymbol `color` prop to accept `OpaqueColorValue` for
+React Navigation compatibility.
+
+---
+
+## 2026-01-08 - Make link color theme-aware
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/themed-text.tsx`
+- `apps/mobile/constants/theme.ts`
+
+**Summary:**
+Removed hardcoded link color and added a `link` token in the theme so link text
+uses `useThemeColor` and respects light/dark modes.
+
+---
+
+## 2026-01-08 - Fix HelloWave animation (Reanimated)
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/hello-wave.tsx`
+
+**Summary:**
+Replaced unsupported inline CSS animation props with a Reanimated shared value
+and animated style to rotate the wave emoji.
+
+---
+
 ## 2026-01-07 - Foundation Phase Configuration
 
 **Status:** Completed (Partial Scope)

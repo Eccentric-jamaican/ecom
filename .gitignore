@@ -30,6 +30,16 @@ node_modules
 .DS_Store
 *.pem
 *.log
+
+# expo
+**/.expo
+**/.expo-shared
+
+# env
+.env
+.env.*
+**/.env
+**/.env.*
 .eslintcache
 
 # debug

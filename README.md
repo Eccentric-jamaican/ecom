@@ -2,11 +2,24 @@ This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-
 
 ## Getting Started
 
-First, run the development server from the repo root:
+This monorepo contains:
+- `apps/web` (Next.js)
+- `apps/mobile` (Expo + Expo Router)
+
+### Web (Next.js)
 
 ```bash
-bun run dev
+bun --cwd apps/web dev
 ```
+
+### Mobile (Expo)
+
+```bash
+bun --cwd apps/mobile dev
+```
+
+Before running mobile, set `EXPO_PUBLIC_CONVEX_URL` in `apps/mobile/.env` (use the
+same value as `NEXT_PUBLIC_CONVEX_URL` from `apps/web/.env.local`).
 
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 

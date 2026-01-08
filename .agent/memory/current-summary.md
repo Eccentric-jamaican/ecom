@@ -19,6 +19,17 @@
 - Removed deprecated `src/middleware.ts` to satisfy Next.js 16 proxy convention
 - Resolved merge conflict in `apps/web/src/app/layout.tsx`
 - Created agent memory system structure
+- Scaffolded Expo mobile app in `apps/mobile` (Expo Router + TypeScript)
+- Added Uniwind styling support (`apps/mobile/global.css`, `apps/mobile/metro.config.js`)
+- Added mobile Convex client/provider (`apps/mobile/lib/convex.ts`, `app/_layout.tsx`)
+- Moved Convex backend to root `convex/` and added `packages/convex` for shared bindings
+- Updated root `.gitignore` for Expo + env files and refreshed README mobile instructions
+- Wired Clerk Expo SDK in mobile (`@clerk/clerk-expo`, `expo-secure-store`) and integrated `ConvexProviderWithClerk` in `apps/mobile/app/_layout.tsx`
+- Switched workspace packages (`shared`, `ui`, `convex`) to compiled `dist/` outputs with build configs and exports for maintainability
+- Aligned `apps/mobile/components/ui/icon-symbol.tsx` props with iOS variant (color/style types, keep weight param)
+- Updated `apps/mobile/components/ui/icon-symbol.ios.tsx` to accept `OpaqueColorValue` for React Navigation color compatibility
+- Updated `apps/mobile/components/themed-text.tsx` to use theme `link` color and removed hardcoded link color
+- Replaced invalid CSS animation in `apps/mobile/components/hello-wave.tsx` with a Reanimated shared value + animated style
 - **Foundation Phase Verified:**
   - Installed `@clerk/nextjs`, `ai`, `@ai-sdk/openai`
   - Configured `.env.local` with Clerk & OpenRouter keys
