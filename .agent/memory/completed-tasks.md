@@ -133,6 +133,27 @@ and animated style to rotate the wave emoji.
 
 ---
 
+## 2026-01-08 - Install Inngest in web app
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/package.json`
+- `apps/web/src/inngest/client.ts`
+- `apps/web/src/inngest/functions.ts`
+- `apps/web/src/app/api/inngest/route.ts`
+- `apps/web/bun.lockb`
+- `bun.lock`
+
+**Summary:**
+Installed the Inngest SDK and added a minimal Next.js App Router handler with a
+sample function plus a dev script to run the Inngest CLI locally.
+
+**Next Steps:**
+- Run `bun --cwd apps/web dev` and `bun --cwd apps/web inngest:dev` to test the dev server.
+
+---
+
 ## 2026-01-07 - Foundation Phase Configuration
 
 **Status:** Completed (Partial Scope)
