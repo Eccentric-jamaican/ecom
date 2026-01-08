@@ -16,6 +16,13 @@
   --text-fluid-body: clamp(0.875rem, 0.5vw + 0.75rem, 1rem);
   --text-fluid-price: clamp(1rem, 0.75vw + 0.75rem, 1.25rem);
 
+  /* Custom Font */
+  --font-display: var(--font-manrope), sans-serif;
+
+  /* Custom Colors from Reference */
+  --color-background-light: var(--background-light);
+  --color-background-dark: var(--background-dark);
+
   /* Fluid line heights */
   --leading-fluid-tight: clamp(1.2, -0.2vw + 1.3, 1.3);
   --leading-fluid-normal: clamp(1.4, -0.2vw + 1.5, 1.5);
@@ -67,7 +74,7 @@
   --card-foreground: oklch(0.145 0 0);
   --popover: oklch(1 0 0);
   --popover-foreground: oklch(0.145 0 0);
-  --primary: oklch(0.205 0 0);
+  --primary: #ef9439;
   --primary-foreground: oklch(0.985 0 0);
   --secondary: oklch(0.97 0 0);
   --secondary-foreground: oklch(0.205 0 0);
@@ -77,6 +84,10 @@
   --accent-foreground: oklch(0.205 0 0);
   --destructive: oklch(0.577 0.245 27.325);
   --border: oklch(0.922 0 0);
+
+  /* Custom Ref Colors */
+  --background-light: #f8f7f6;
+  --background-dark: #221910;
   --input: oklch(0.922 0 0);
   --ring: oklch(0.708 0 0);
   --chart-1: oklch(0.646 0.222 41.116);
@@ -101,7 +112,7 @@
   --card-foreground: oklch(0.985 0 0);
   --popover: oklch(0.205 0 0);
   --popover-foreground: oklch(0.985 0 0);
-  --primary: oklch(0.922 0 0);
+  --primary: #ef9439;
   --primary-foreground: oklch(0.205 0 0);
   --secondary: oklch(0.269 0 0);
   --secondary-foreground: oklch(0.985 0 0);
@@ -134,5 +145,15 @@
   }
   body {
     @apply bg-background text-foreground;
+  }
+}
+
+@layer utilities {
+  .hide-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .hide-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }
