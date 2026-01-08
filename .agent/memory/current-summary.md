@@ -30,6 +30,7 @@
 - Updated `apps/mobile/components/ui/icon-symbol.ios.tsx` to accept `OpaqueColorValue` for React Navigation color compatibility
 - Updated `apps/mobile/components/themed-text.tsx` to use theme `link` color and removed hardcoded link color
 - Replaced invalid CSS animation in `apps/mobile/components/hello-wave.tsx` with a Reanimated shared value + animated style
+- Installed Inngest in `apps/web` and added minimal client, functions, and API route with an `inngest:dev` script
 - **Foundation Phase Verified:**
   - Installed `@clerk/nextjs`, `ai`, `@ai-sdk/openai`
   - Configured `.env.local` with Clerk & OpenRouter keys
