@@ -54,6 +54,85 @@ root layout with `ClerkProvider` + `ConvexProviderWithClerk` using `useAuth` fro
 
 ---
 
+## 2026-01-08 - Compile workspace packages for maintainability
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `packages/convex/package.json`
+- `packages/convex/tsconfig.json`
+- `packages/convex/tsconfig.build.json`
+- `packages/shared/package.json`
+- `packages/shared/tsconfig.build.json`
+- `packages/ui/package.json`
+- `packages/ui/tsconfig.build.json`
+- `package.json`
+- `bun.lock`
+
+**Summary:**
+Converted internal workspace packages to build into `dist/` with `main/types`
+pointing at compiled outputs and added ESM `exports` fields. Added per-package
+build configs and a root TypeScript dev dependency to stabilize builds.
+
+**Next Steps:**
+- Run `bun run build` (or `bunx turbo run build`) to emit `dist/` artifacts when needed.
+
+---
+
+## 2026-01-08 - Align IconSymbol props across platforms
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/ui/icon-symbol.tsx`
+
+**Summary:**
+Matched Android/web IconSymbol prop types to the iOS variant by using `string`
+color, `StyleProp<ViewStyle>`, and keeping `weight` in the signature for API
+consistency.
+
+---
+
+## 2026-01-08 - Allow OpaqueColorValue in iOS IconSymbol
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/ui/icon-symbol.ios.tsx`
+
+**Summary:**
+Extended the iOS IconSymbol `color` prop to accept `OpaqueColorValue` for
+React Navigation compatibility.
+
+---
+
+## 2026-01-08 - Make link color theme-aware
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/themed-text.tsx`
+- `apps/mobile/constants/theme.ts`
+
+**Summary:**
+Removed hardcoded link color and added a `link` token in the theme so link text
+uses `useThemeColor` and respects light/dark modes.
+
+---
+
+## 2026-01-08 - Fix HelloWave animation (Reanimated)
+
+**Status:** Completed
+**Files Modified:**
+
+- `apps/mobile/components/hello-wave.tsx`
+
+**Summary:**
+Replaced unsupported inline CSS animation props with a Reanimated shared value
+and animated style to rotate the wave emoji.
+
+---
+
 ## 2026-01-07 - Foundation Phase Configuration
 
 **Status:** Completed (Partial Scope)

@@ -6,6 +6,7 @@
       "name": "ecom",
       "devDependencies": {
         "turbo": "^2.0.0",
+        "typescript": "^5",
       },
     },
     "apps/mobile": {

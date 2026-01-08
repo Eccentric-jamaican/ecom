@@ -25,6 +25,11 @@
 - Moved Convex backend to root `convex/` and added `packages/convex` for shared bindings
 - Updated root `.gitignore` for Expo + env files and refreshed README mobile instructions
 - Wired Clerk Expo SDK in mobile (`@clerk/clerk-expo`, `expo-secure-store`) and integrated `ConvexProviderWithClerk` in `apps/mobile/app/_layout.tsx`
+- Switched workspace packages (`shared`, `ui`, `convex`) to compiled `dist/` outputs with build configs and exports for maintainability
+- Aligned `apps/mobile/components/ui/icon-symbol.tsx` props with iOS variant (color/style types, keep weight param)
+- Updated `apps/mobile/components/ui/icon-symbol.ios.tsx` to accept `OpaqueColorValue` for React Navigation color compatibility
+- Updated `apps/mobile/components/themed-text.tsx` to use theme `link` color and removed hardcoded link color
+- Replaced invalid CSS animation in `apps/mobile/components/hello-wave.tsx` with a Reanimated shared value + animated style
 - **Foundation Phase Verified:**
   - Installed `@clerk/nextjs`, `ai`, `@ai-sdk/openai`
   - Configured `.env.local` with Clerk & OpenRouter keys
