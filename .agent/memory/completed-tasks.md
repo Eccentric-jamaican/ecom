@@ -1,5 +1,59 @@
 # Completed Tasks Log
 
+## 2026-01-08 - Scaffold Expo mobile app + share Convex bindings
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/mobile/*` (Expo Router app scaffold)
+- `apps/mobile/metro.config.js`
+- `apps/mobile/global.css`
+- `apps/mobile/uniwind-types.d.ts`
+- `apps/mobile/lib/convex.ts`
+- `apps/mobile/.env`
+- `convex/*` (moved from `apps/web/convex`)
+- `packages/convex/*`
+- `.gitignore`
+- `README.md`
+
+**Summary:**
+Created `apps/mobile` using Expo Router + TypeScript, wired Uniwind for Tailwind
+bindings, added a Convex client provider, and moved the Convex backend to the
+repo root with a shared `@sendcat/convex` package for bindings.
+
+**Key Decisions:**
+- Use root `convex/` folder as the single source of truth.
+- Use `@sendcat/convex` workspace package to share generated types.
+- Configure Expo Metro + Uniwind for monorepo watchFolders.
+
+**Next Steps:**
+- Set `EXPO_PUBLIC_CONVEX_URL` in `apps/mobile/.env`.
+- Run `bun --cwd apps/mobile dev` and verify iOS/Android.
+- If/when ready, add Clerk Expo SDK + Convex auth on mobile.
+
+---
+
+## 2026-01-08 - Add Clerk Expo + Convex auth integration
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/mobile/app/_layout.tsx`
+- `apps/mobile/.env`
+- `apps/mobile/package.json`
+- `apps/mobile/bun.lockb`
+
+**Summary:**
+Installed the Clerk Expo SDK and secure token caching, then wrapped the Expo
+root layout with `ClerkProvider` + `ConvexProviderWithClerk` using `useAuth` from
+`@clerk/clerk-expo`.
+
+**Next Steps:**
+- Set `EXPO_PUBLIC_CLERK_PUBLISHABLE_KEY` in `apps/mobile/.env`.
+- Run `bun --cwd apps/mobile dev` to confirm auth initialization.
+
+---
+
 ## 2026-01-07 - Foundation Phase Configuration
 
 **Status:** Completed (Partial Scope)
