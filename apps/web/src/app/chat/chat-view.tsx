@@ -226,7 +226,7 @@ export function ChatView({ initialPrompt }: ChatViewProps) {
                             Free Shipping
                           </button>
                           <button className="px-4 py-2 bg-white border border-[#e5e7eb] rounded-full text-sm font-medium text-[#111417] hover:bg-gray-50 transition shadow-sm whitespace-nowrap" type="button">
-                            Lumber Support
+                            Lumbar Support
                           </button>
                         </div>
 
