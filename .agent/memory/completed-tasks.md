@@ -154,6 +154,18 @@ sample function plus a dev script to run the Inngest CLI locally.
 
 ---
 
+## 2026-01-08 - Add Sentry MCP config
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `mcp_config.json`
+
+**Summary:**
+Added the Sentry MCP server configuration for the Sendcat web project.
+
+---
+
 ## 2026-01-07 - Foundation Phase Configuration
 
 **Status:** Completed (Partial Scope)

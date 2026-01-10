@@ -32,6 +32,7 @@
 - Replaced invalid CSS animation in `apps/mobile/components/hello-wave.tsx` with a Reanimated shared value + animated style
 - Installed Inngest in `apps/web` and added minimal client, functions, and API route with an `inngest:dev` script
 - Added `FIRECRAWL_API_KEY` to `apps/web/.env.local`
+- Added Sentry MCP server config in `mcp_config.json`
 - **Foundation Phase Verified:**
   - Installed `@clerk/nextjs`, `ai`, `@ai-sdk/openai`
   - Configured `.env.local` with Clerk & OpenRouter keys

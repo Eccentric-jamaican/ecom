@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --shadow-ai-input: 0 4px 20px -2px rgba(0, 0, 0, 0.05), 0 2px 10px -2px rgba(0, 0, 0, 0.02);
   --color-background: var(--background);
   --color-foreground: var(--foreground);
   --font-sans: var(--font-inter);
@@ -144,8 +145,25 @@
     @apply border-border outline-ring/50;
   }
   body {
-    @apply bg-background text-foreground;
+    @apply bg-background text-foreground transition-colors duration-300;
   }
+}
+
+@keyframes gradient-bg {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.ai-gradient-bg {
+  background: linear-gradient(-45deg, #eff6ff, #fff7ed, #f0f9ff, #fff);
+  background-size: 400% 400%;
+  animation: gradient-bg 15s ease infinite;
+}
+
+.dark .ai-gradient-bg {
+  background: linear-gradient(-45deg, #221910, #2c241a, #1a1a1a, #221910);
+  background-size: 400% 400%;
 }
 
 @layer utilities {

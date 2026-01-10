@@ -15,7 +15,7 @@ export function Header() {
   );
 
   return (
-    <header className="sticky top-0 z-50 flex items-center justify-between border-b border-solid border-slate-200 bg-white dark:bg-[#1a1a1a] dark:border-[#333] px-6 py-4 lg:px-20 shadow-sm">
+    <header className="sticky top-0 z-50 flex items-center justify-between border-b border-solid border-slate-200 bg-white dark:bg-[#1a1a1a] dark:border-[#333] px-4 py-3 md:px-6 md:py-4 lg:px-20 shadow-sm">
       <div className="flex items-center gap-8 w-full max-w-7xl mx-auto justify-between">
         <div className="flex items-center gap-4 lg:gap-8">
           {/* Mobile Nav */}
@@ -57,18 +57,6 @@ export function Header() {
           </div>
         </div>
 
-        <div className="hidden md:flex flex-1 max-w-[400px] mx-8">
-          <label className="flex w-full items-center rounded-lg bg-slate-100 dark:bg-[#333] focus-within:ring-2 focus-within:ring-primary/50 transition-all">
-            <span className="sr-only">Search products</span>
-            <div className="pl-4 text-gray-500 dark:text-gray-400">
-              <span className="material-symbols-outlined">search</span>
-            </div>
-            <input 
-              className="w-full bg-transparent border-none py-2.5 px-3 text-sm text-[#181411] dark:text-white placeholder:text-gray-500 focus:ring-0 outline-none" 
-              placeholder="Search for products..."
-            />
-          </label>
-        </div>
 
         <div className="flex items-center gap-4">
           <button 
