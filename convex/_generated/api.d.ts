@@ -8,13 +8,19 @@
  * @module
  */
 
+import type * as ebay from "../ebay.js";
+import type * as products from "../products.js";
+
 import type {
   ApiFromModules,
   FilterApi,
   FunctionReference,
 } from "convex/server";
 
-declare const fullApi: ApiFromModules<{}>;
+declare const fullApi: ApiFromModules<{
+  ebay: typeof ebay;
+  products: typeof products;
+}>;
 
 /**
  * A utility for referencing Convex functions in your app's public API.

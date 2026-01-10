@@ -1,37 +1,47 @@
 # Current Plan - Sendcat Development
 
-## Status: Foundation Phase
+## Status: eBay Integration (Browse API first)
 
-## Current Phase (1-2 days)
+### Locked Decisions
 
-# Current Plan - Sendcat Development
+- Marketplace: EBAY_US (launch target = Jamaica/Caribbean).
+- No auctions (fixed-price only).
+- Always use `itemAffiliateWebUrl` when available (EPN campaign ID confirmed).
+- Use `X-EBAY-C-ENDUSERCTX` with `affiliateCampaignId` and `contextualLocation=country=JM`; test shipping estimates behavior.
 
-## Status: Foundation Phase
+### Phase 2 - eBay Integration (Browse API)
 
-## Current Phase (1-2 days)
+1. Shared contracts (packages/shared)
+   - Define Product + SearchResult types and Zod schemas.
+   - Add `api-clients/ebay/{client.ts,types.ts,parser.ts}` and export from `packages/shared`.
+2. OAuth token service (server-only)
+   - Client-credentials grant flow.
+   - Token cache with expiry handling.
+   - Env validation for eBay keys + EPN settings.
+3. Browse API search + detail
+   - `item_summary/search` for search results.
+   - `getItem` for detail refresh / affiliate fallback.
+   - Headers: `X-EBAY-C-MARKETPLACE-ID` + `X-EBAY-C-ENDUSERCTX` (affiliate + contextualLocation).
+4. Affiliate link handling
+   - Prefer `itemAffiliateWebUrl`.
+   - Fallback to EPN tracking link builder for non-Browse sources.
+5. Convex actions + caching
+   - `products.search` action (returns validated results).
+   - `products.getBySourceId` action.
+   - Cache policy (ToS-aligned): item listing info ≤ 6 hours old; other eBay content ≤ 24 hours old; disclose staleness if older.
+   - Search results cache: 10 minutes (UX-driven, within freshness limits).
+6. UI wiring (web + mobile)
+   - Search -> carousels -> product detail.
+   - Affiliate badge + disclosure on product pages (per PRD).
+7. Background processing split
+   - Inngest: AI agent calls only.
+   - Convex: eBay API calls (actions) + scheduled refresh (scheduled functions / cron).
+   - Workpool deferred; add only if throughput/concurrency demands it.
+8. Observability
+   - Structured logs for eBay calls + rate limits.
+   - Error tracking around eBay API failures.
 
-### 1.1 Initialize Turborepo + Bun Monorepo Structure
+### Open Items
 
-- [x] Create `apps/web` Next.js 16 application
-- [x] Create `packages/shared` for shared types/utilities
-- [x] Configure `turbo.json`
-
-### 1.2 Set Up Convex Project
-
-- [x] Run `bunx convex dev` to create deployment
-- [x] Configure `convex/schema.ts` with tables from PRD
-- [x] Set up environment variables
-
-### 1.3 Configure Clerk Authentication
-
-- [x] Create Clerk project
-- [x] Add `src/proxy.ts` (Next.js 16 Middleware)
-- [x] Wrap app in `<ClerkProvider>`
-- ✅ Created agent filesystem.md
-
-## Next After Foundation
-
-1. Build core UI components (ProductCard, Carousel, ChatInterface)
-2. Implement AI agent system (supervisor + subagents)
-3. Integrate eBay Browse API
-4. Add analytics and monitoring
+- Confirm production access timeline (Browse API + EPN).
+- Verify contextualLocation shipping estimate accuracy for `country=JM`.

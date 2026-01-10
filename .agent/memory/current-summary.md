@@ -1,5 +1,27 @@
 # Current Session Summary
 
+## Latest Updates (2026-01-10)
+
+- Confirmed eBay launch scope: EBAY_US marketplace, fixed-price only (no auctions).
+- EPN campaign ID confirmed; outbound links will always prefer `itemAffiliateWebUrl`.
+- Shipping estimates will be tested using `contextualLocation=country=JM`.
+- Updated `.agent/plan/current-plan.md` with detailed eBay integration plan.
+- Logged eBay launch decisions in `.agent/knowledge/key-decisions.md`.
+- Found eBay content freshness requirement: listing info ≤ 6 hours old, other content ≤ 24 hours; disclose staleness if older.
+- Clarified background jobs split: Inngest for AI agent calls only; Convex actions/scheduled functions (optional Workpool component) for eBay API work.
+- Workpool explicitly deferred; start with Convex actions + scheduled/cron.
+- Implemented eBay integration scaffolding: shared eBay client/types/parser + Zod schemas, Convex actions for search/item + internal upsert mutation, OAuth token helper + affiliate fallback builder.
+- Wired web UI to Convex actions: FeaturedProducts now fetches live eBay data via `api.products.search`, and product details uses `api.products.getItem` with affiliate CTA.
+- Added `@sendcat/shared` to root deps for Convex bundling and added `@sendcat/shared`/`@sendcat/convex` to web deps; ran `bunx convex dev` after fixing type error.
+- Set `EBAY_ENV` to `sandbox` in Convex dev + `apps/web/.env.local` and updated storefront search to use query/category params instead of a hardcoded term.
+- Started `bunx convex dev` successfully after removing stray compiled Convex outputs; added ignore rules for `convex/*.js` and `convex/*.d.ts*`.
+- Added eBay-inspired category browsing: new `/b/[slug]/[node]` route with filter pills (All, Buy It Now, Best Offer, Auction disabled) and a `CategoryResults` component for live listings.
+- Updated CategoryGrid links to eBay-like paths and added category node identifiers (real electronics node, placeholders for others).
+- Switched `EBAY_ENV` to `production` in Convex dev + `apps/web/.env.local`, fixed seller rating parsing/coercion in shared schemas, and added `i.ebayimg.com` to Next.js image remote patterns (requires Next dev server restart).
+- Improved category browsing relevance and UX: category links now pass curated `q` queries, filter pills preserve `q`, loading state shows skeletons, and breadcrumbs now include a Shop link.
+- Updated category browsing to use real eBay category IDs and robust URL parsing (client-side pathname/search params) so `/b/[slug]/[node]` reflects the actual category and filter pills preserve `q` + `categoryId`.
+- Added skeleton loading for product details, guarded missing itemId calls, and made product details degrade gracefully on errors.
+
 ## Last Session (2026-01-07)
 
 ### Work Completed

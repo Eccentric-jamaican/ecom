@@ -4,7 +4,11 @@
   "workspaces": {
     "": {
       "name": "ecom",
+      "dependencies": {
+        "@sendcat/shared": "workspace:*",
+      },
       "devDependencies": {
+        "convex": "^1.31.3",
         "turbo": "^2.0.0",
         "typescript": "^5",
       },
@@ -87,6 +91,8 @@
         "@radix-ui/react-toggle-group": "^1.1.11",
         "@radix-ui/react-tooltip": "^1.2.8",
         "@radix-ui/react-use-controllable-state": "^1.2.2",
+        "@sendcat/convex": "workspace:*",
+        "@sendcat/shared": "workspace:*",
         "@sentry/nextjs": "10",
         "@xyflow/react": "^12.10.0",
         "ai": "^6.0.21",
@@ -141,6 +147,9 @@
     "packages/shared": {
       "name": "@sendcat/shared",
       "version": "0.0.0",
+      "dependencies": {
+        "zod": "^4.3.5",
+      },
     },
     "packages/ui": {
       "name": "@sendcat/ui",
