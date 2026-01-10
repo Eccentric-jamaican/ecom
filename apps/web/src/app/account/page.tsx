@@ -19,7 +19,7 @@ import {
   CardHeader,
   CardTitle,
 } from "@/components/ui/card";
-import { Input } from "@/components/ui/input";
+
 import { Separator } from "@/components/ui/separator";
 
 const ACCOUNT_ITEMS = [
@@ -87,6 +87,13 @@ const APP_SETTINGS_ITEMS = [
     href: "#",
   },
   {
+    title: "Integrations",
+    description: "Connected services & apps",
+    icon: "extension",
+    iconClass: "text-slate-600 bg-slate-100/80",
+    href: "#",
+  },
+  {
     title: "Privacy Policy",
     description: null,
     icon: "privacy_tip",
@@ -94,6 +101,7 @@ const APP_SETTINGS_ITEMS = [
     href: "#",
   },
 ];
+
 
 export default async function AccountPage() {
   const user = await currentUser();
@@ -146,17 +154,9 @@ export default async function AccountPage() {
             </Link>
           </nav>
         </div>
-        <div className="flex flex-1 justify-end gap-4 lg:gap-8">
-          <div className="hidden md:flex items-center gap-3 min-w-40 h-10 max-w-64 w-full rounded-lg bg-background-light dark:bg-slate-800 border border-slate-200 dark:border-slate-700 px-3">
-            <span className="material-symbols-outlined text-slate-500 text-[20px]">
-              search
-            </span>
-            <Input
-              className="h-full border-none bg-transparent px-0 text-sm focus-visible:ring-0 focus-visible:ring-offset-0"
-              placeholder="Search products..."
-            />
-          </div>
+        <div className="flex items-center justify-end gap-4 lg:gap-8">
           <div className="flex gap-2">
+
             <Button
               variant="ghost"
               size="icon"
