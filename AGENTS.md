@@ -1,0 +1,1 @@
+Read the PRD.md and .agent to get up to speed on the progress of the project. 
