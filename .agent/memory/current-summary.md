@@ -34,6 +34,7 @@
 - Added `FIRECRAWL_API_KEY` to `apps/web/.env.local`
 - Added Sentry MCP server config in `mcp_config.json`
 - Moved Sentry DSN to `NEXT_PUBLIC_SENTRY_DSN` env var in server/edge configs and added `.env.example`
+- Product details page review note: `params.slug` currently unused; user chose to defer changes until later (no seed script)
 - **Foundation Phase Verified:**
   - Installed `@clerk/nextjs`, `ai`, `@ai-sdk/openai`
   - Configured `.env.local` with Clerk & OpenRouter keys

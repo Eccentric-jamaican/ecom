@@ -182,6 +182,15 @@ configs and added a placeholder in `.env.example`.
 
 ---
 
+## 2026-01-08 - Defer product details slug handling
+
+**Status:** Deferred
+**Summary:**
+Noted review suggestion to use `params.slug` in the product details page, but
+deferred implementation until after eBay integration (no seed script).
+
+---
+
 ## 2026-01-07 - Foundation Phase Configuration
 
 **Status:** Completed (Partial Scope)
