@@ -166,6 +166,22 @@ Added the Sentry MCP server configuration for the Sendcat web project.
 
 ---
 
+## 2026-01-08 - Move Sentry DSN to env config
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/sentry.server.config.ts`
+- `apps/web/sentry.edge.config.ts`
+- `apps/web/.env.local`
+- `apps/web/.env.example`
+
+**Summary:**
+Replaced hardcoded Sentry DSN with `NEXT_PUBLIC_SENTRY_DSN` in server/edge
+configs and added a placeholder in `.env.example`.
+
+---
+
 ## 2026-01-07 - Foundation Phase Configuration
 
 **Status:** Completed (Partial Scope)

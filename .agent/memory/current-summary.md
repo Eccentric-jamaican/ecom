@@ -33,6 +33,7 @@
 - Installed Inngest in `apps/web` and added minimal client, functions, and API route with an `inngest:dev` script
 - Added `FIRECRAWL_API_KEY` to `apps/web/.env.local`
 - Added Sentry MCP server config in `mcp_config.json`
+- Moved Sentry DSN to `NEXT_PUBLIC_SENTRY_DSN` env var in server/edge configs and added `.env.example`
 - **Foundation Phase Verified:**
   - Installed `@clerk/nextjs`, `ai`, `@ai-sdk/openai`
   - Configured `.env.local` with Clerk & OpenRouter keys
