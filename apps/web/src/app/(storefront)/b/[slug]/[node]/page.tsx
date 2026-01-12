@@ -1,14 +1,17 @@
 import { CategoryResults } from "@/components/features/storefront/CategoryResults";
 
+type PageParams = { slug?: string; node?: string };
+type PageSearchParams = {
+  q?: string;
+  LH_BIN?: string;
+  LH_BO?: string;
+  LH_Auction?: string;
+  categoryId?: string;
+};
+
 type PageProps = {
-  params?: { slug?: string; node?: string };
-  searchParams?: {
-    q?: string;
-    LH_BIN?: string;
-    LH_BO?: string;
-    LH_Auction?: string;
-    categoryId?: string;
-  };
+  params?: Promise<PageParams>;
+  searchParams?: Promise<PageSearchParams>;
 };
 
 type ListingFilter = "all" | "buyItNow" | "bestOffer" | "auction";
@@ -26,7 +29,7 @@ const toTitleCase = (value: string) =>
     )
     .join(" ");
 
-const getFilterConfig = (searchParams?: PageProps["searchParams"]): FilterConfig => {
+const getFilterConfig = (searchParams?: PageSearchParams): FilterConfig => {
   if (searchParams?.LH_Auction === "1") {
     return { filterType: "auction" };
   }
@@ -42,15 +45,20 @@ const getFilterConfig = (searchParams?: PageProps["searchParams"]): FilterConfig
   return { filterType: "all" };
 };
 
-export default function CategoryPage({ params, searchParams }: PageProps) {
-  const slug = params?.slug ?? "category";
+export default async function CategoryPage({ params, searchParams }: PageProps) {
+  const resolvedParams = await params;
+  const resolvedSearchParams = await searchParams;
+  const slug = resolvedParams?.slug ?? "category";
   const title = toTitleCase(slug);
-  const queryParam = typeof searchParams?.q === "string" ? searchParams.q.trim() : "";
+  const queryParam =
+    typeof resolvedSearchParams?.q === "string" ? resolvedSearchParams.q.trim() : "";
   const query = queryParam || slug.replace(/-/g, " ");
   const categoryId =
-    typeof searchParams?.categoryId === "string" ? searchParams.categoryId : undefined;
-  const { filterType, filter } = getFilterConfig(searchParams);
-  const node = params?.node ?? "bn";
+    typeof resolvedSearchParams?.categoryId === "string"
+      ? resolvedSearchParams.categoryId
+      : undefined;
+  const { filterType, filter } = getFilterConfig(resolvedSearchParams);
+  const node = resolvedParams?.node ?? "bn";
   const basePath = `/b/${slug}/${node}`;
 
   return (

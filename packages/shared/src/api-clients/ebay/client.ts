@@ -29,6 +29,34 @@ const buildHeaders = (config: EbayClientConfig) => {
   return headers;
 };
 
+const fetchWithRetry = async (
+  url: string,
+  init: RequestInit,
+  attempts = 3,
+) => {
+  let delay = 250;
+  for (let attempt = 0; attempt < attempts; attempt += 1) {
+    try {
+      const response = await fetch(url, init);
+      if (
+        response.ok ||
+        (response.status < 500 && response.status !== 429)
+      ) {
+        return response;
+      }
+    } catch {
+      // Network error, retry below.
+    }
+
+    if (attempt < attempts - 1) {
+      await new Promise((resolve) => setTimeout(resolve, delay));
+      delay *= 2;
+    }
+  }
+
+  return fetch(url, init);
+};
+
 export async function searchEbayItems(
   config: EbayClientConfig,
   params: EbaySearchParams,
@@ -43,7 +71,7 @@ export async function searchEbayItems(
     url.searchParams.set("category_ids", params.categoryIds.join(","));
   }
 
-  const response = await fetch(url.toString(), {
+  const response = await fetchWithRetry(url.toString(), {
     headers: buildHeaders(config),
   });
 
@@ -59,8 +87,9 @@ export async function getEbayItem(
   config: EbayClientConfig,
   itemId: string,
 ): Promise<EbayGetItemResponse> {
-  const url = new URL(`/buy/browse/v1/item/${itemId}`, config.baseUrl);
-  const response = await fetch(url.toString(), {
+  const encodedItemId = encodeURIComponent(itemId);
+  const url = new URL(`/buy/browse/v1/item/${encodedItemId}`, config.baseUrl);
+  const response = await fetchWithRetry(url.toString(), {
     headers: buildHeaders(config),
   });
 

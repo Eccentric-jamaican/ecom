@@ -39,6 +39,31 @@ Browse filter to include Best Offer alongside fixed price.
 
 ---
 
+## 2026-01-12 - Harden eBay browsing + product detail reliability
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/src/app/(storefront)/products/[slug]/page.tsx`
+- `apps/web/src/app/(storefront)/b/[slug]/[node]/page.tsx`
+- `apps/web/src/app/(storefront)/page.tsx`
+- `apps/web/src/components/features/storefront/CategoryResults.tsx`
+- `packages/shared/src/api-clients/ebay/client.ts`
+- `packages/shared/src/api-clients/ebay/parser.ts`
+- `packages/shared/src/validation/products.ts`
+- `convex/ebay.ts`
+- `convex/products.ts`
+
+**Summary:**
+Fixed Next.js 16 async params usage (storefront + category pages), corrected product
+details to use `useParams()` (removing params Promise error), and added an empty state
+for zero-result category listings. Cleaned shadowed URLSearchParams and removed dead
+loading JSX.
+Hardened eBay client behavior (itemId encoding, retry/backoff, allow zero prices),
+sanitized token errors, and added in-flight token refresh locking. Added caching for
+getItem using the products table + TTL and fall back to `itemWebUrl` when affiliate URLs
+aren’t available. Updated currency validation and fixed a `class` -> `className` JSX typo.
+
 ## 2026-01-10 - Wire real eBay category filtering
 
 **Status:** Completed

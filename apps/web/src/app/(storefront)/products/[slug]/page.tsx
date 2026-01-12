@@ -217,8 +217,6 @@ export default function ProductDetailsPage() {
             <h1 className="text-3xl md:text-4xl font-extrabold leading-tight text-[#181411] dark:text-white mb-2">{displayHeading}</h1>
             {error ? (
               <p className="text-sm text-red-600 font-medium">Unable to load live listing.</p>
-            ) : isLoading ? (
-              <p className="text-sm text-muted-foreground">Loading live listing…</p>
             ) : null}
             <div className="flex items-center gap-4 mb-4">
               <div className="flex items-center gap-1 text-primary">
@@ -429,7 +427,7 @@ export default function ProductDetailsPage() {
                   </div>
                   <div>
                     <h4 className="font-bold text-[#181411] dark:text-white text-sm">James M.</h4>
-                    <span class="text-xs text-[#897561]">Verified Buyer • 2 days ago</span>
+                    <span className="text-xs text-[#897561]">Verified Buyer • 2 days ago</span>
                   </div>
                 </div>
                 <div className="flex text-primary text-xs">

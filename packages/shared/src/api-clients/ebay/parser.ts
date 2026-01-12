@@ -15,7 +15,7 @@ export function parseEbayItemSummary(
   const currency = item.price?.currency ?? "USD";
   const imageUrl = item.image?.imageUrl;
 
-  if (!priceValue || !imageUrl) {
+  if (priceValue === null || priceValue === undefined || !imageUrl) {
     return null;
   }
 

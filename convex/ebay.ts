@@ -8,10 +8,11 @@ const EBAY_OAUTH_SCOPE = "https://api.ebay.com/oauth/api_scope";
 const DEFAULT_MARKETPLACE_ID = "EBAY_US";
 const DEFAULT_CONTEXT_COUNTRY = "JM";
 
-const tokenCache: { token: string; expiresAt: number } = {
-  token: "",
-  expiresAt: 0,
-};
+const tokenCache: {
+  token?: string;
+  expiresAt?: number;
+  inFlight?: Promise<string>;
+} = {};
 
 const base64Encode = (value: string) => {
   if (typeof btoa === "function") {
@@ -62,8 +63,12 @@ export const getEbayEndUserContext = () => {
 
 export const getEbayAccessToken = async () => {
   const now = Date.now();
-  if (tokenCache.token && tokenCache.expiresAt - now > 60_000) {
+  if (tokenCache.token && tokenCache.expiresAt && tokenCache.expiresAt - now > 60_000) {
     return tokenCache.token;
+  }
+
+  if (tokenCache.inFlight) {
+    return tokenCache.inFlight;
   }
 
   const clientId = requiredEnv("EBAY_CLIENT_ID");
@@ -75,29 +80,34 @@ export const getEbayAccessToken = async () => {
     scope: EBAY_OAUTH_SCOPE,
   });
 
-  const response = await fetch(getEbayTokenUrl(), {
-    method: "POST",
-    headers: {
-      Authorization: `Basic ${basicAuth}`,
-      "Content-Type": "application/x-www-form-urlencoded",
-    },
-    body: body.toString(),
+  tokenCache.inFlight = (async () => {
+    const response = await fetch(getEbayTokenUrl(), {
+      method: "POST",
+      headers: {
+        Authorization: `Basic ${basicAuth}`,
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: body.toString(),
+    });
+
+    if (!response.ok) {
+      throw new Error(`eBay token request failed (status ${response.status}).`);
+    }
+
+    const payload = (await response.json()) as {
+      access_token: string;
+      expires_in: number;
+    };
+
+    tokenCache.token = payload.access_token;
+    tokenCache.expiresAt = Date.now() + payload.expires_in * 1000;
+
+    return tokenCache.token;
+  })().finally(() => {
+    tokenCache.inFlight = undefined;
   });
 
-  if (!response.ok) {
-    const errorText = await response.text();
-    throw new Error(`eBay token request failed: ${response.status} ${errorText}`);
-  }
-
-  const payload = (await response.json()) as {
-    access_token: string;
-    expires_in: number;
-  };
-
-  tokenCache.token = payload.access_token;
-  tokenCache.expiresAt = now + payload.expires_in * 1000;
-
-  return tokenCache.token;
+  return tokenCache.inFlight;
 };
 
 export const getEbayClientConfig = (

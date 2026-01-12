@@ -2,7 +2,7 @@ import { z } from "zod";
 
 export const MoneySchema = z.object({
   value: z.number().positive(),
-  currency: z.string().min(3).max(3),
+  currency: z.string().length(3),
 });
 
 export const SellerInfoSchema = z.object({

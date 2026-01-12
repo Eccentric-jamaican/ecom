@@ -6,15 +6,18 @@ import {
   AIPromptHero,
 } from "@/components/features/storefront";
 
-export default function StorefrontPage({
+export default async function StorefrontPage({
   searchParams,
 }: {
-  searchParams?: { q?: string; category?: string };
+  searchParams?: Promise<{ q?: string; category?: string }>;
 }) {
+  const resolvedSearchParams = await searchParams;
   const queryParam =
-    typeof searchParams?.q === "string" ? searchParams.q : undefined;
+    typeof resolvedSearchParams?.q === "string" ? resolvedSearchParams.q : undefined;
   const categoryParam =
-    typeof searchParams?.category === "string" ? searchParams.category : undefined;
+    typeof resolvedSearchParams?.category === "string"
+      ? resolvedSearchParams.category
+      : undefined;
   const normalizedCategory =
     categoryParam && categoryParam !== "all"
       ? categoryParam.replace(/-/g, " ")

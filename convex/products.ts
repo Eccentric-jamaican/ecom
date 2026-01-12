@@ -1,8 +1,10 @@
 import { v } from "convex/values";
-import { action, internalMutation } from "./_generated/server";
+import { action, internalMutation, internalQuery } from "./_generated/server";
 import { internal } from "./_generated/api";
+import type { Doc } from "./_generated/dataModel";
 import {
   ProductSearchResultSchema,
+  type ProductListing,
   parseEbayItemSummary,
   searchEbayItems,
   getEbayItem,
@@ -67,6 +69,18 @@ export const upsertProducts = internalMutation({
   },
 });
 
+export const getCachedProduct = internalQuery({
+  args: {
+    externalId: v.string(),
+  },
+  handler: async (ctx, args) => {
+    return ctx.db
+      .query("products")
+      .withIndex("by_external_id", (q) => q.eq("externalId", args.externalId))
+      .first();
+  },
+});
+
 export const search = action({
   args: {
     query: v.string(),
@@ -100,8 +114,16 @@ export const search = action({
       .map((item) => {
         const affiliateUrl =
           item.itemAffiliateWebUrl ?? buildFallbackAffiliateUrl(item.itemWebUrl);
-        if (!affiliateUrl) return null;
-        return parseEbayItemSummary(item, affiliateUrl);
+        const fallbackUrl = affiliateUrl ?? item.itemWebUrl;
+
+        if (!affiliateUrl && item.itemWebUrl) {
+          console.warn("Missing affiliate URL, falling back to itemWebUrl", {
+            itemId: item.itemId,
+          });
+        }
+
+        if (!fallbackUrl) return null;
+        return parseEbayItemSummary(item, fallbackUrl);
       })
       .filter(
         (item): item is NonNullable<ReturnType<typeof parseEbayItemSummary>> =>
@@ -143,7 +165,29 @@ export const getItem = action({
   args: {
     itemId: v.string(),
   },
-  handler: async (_ctx, args) => {
+  handler: async (ctx, args): Promise<ProductListing> => {
+    const now = Date.now();
+    const cached: Doc<"products"> | null = await ctx.runQuery(
+      internal.products.getCachedProduct,
+      {
+        externalId: args.itemId,
+      },
+    );
+
+    if (cached && cached.expiresAt > now) {
+      return {
+        id: cached.externalId,
+        title: cached.title,
+        price: { value: cached.price, currency: cached.currency },
+        imageUrl: cached.imageUrl,
+        condition: cached.condition,
+        affiliateUrl: cached.affiliateUrl,
+        itemUrl: cached.itemUrl,
+        source: "ebay" as const,
+        seller: cached.seller ?? undefined,
+      };
+    }
+
     const accessToken = await getEbayAccessToken();
     const config = getEbayClientConfig(accessToken);
     const response = await getEbayItem(config, args.itemId);
@@ -158,6 +202,30 @@ export const getItem = action({
     if (!parsed) {
       throw new Error("Unable to parse eBay item response");
     }
+
+    const refreshedAt = Date.now();
+    await ctx.runMutation(internal.products.upsertProducts, {
+      products: [
+        {
+          externalId: parsed.id,
+          title: parsed.title,
+          description: undefined,
+          imageUrl: parsed.imageUrl,
+          images: undefined,
+          price: parsed.price.value,
+          currency: parsed.price.currency,
+          condition: parsed.condition,
+          category: undefined,
+          brand: undefined,
+          seller: parsed.seller,
+          affiliateUrl: parsed.affiliateUrl,
+          itemUrl: parsed.itemUrl,
+          status: "active" as const,
+          cachedAt: refreshedAt,
+          expiresAt: refreshedAt + LISTING_TTL_MS,
+        },
+      ],
+    });
 
     return parsed;
   },

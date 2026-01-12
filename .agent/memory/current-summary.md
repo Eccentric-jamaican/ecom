@@ -22,6 +22,16 @@
 - Updated category browsing to use real eBay category IDs and robust URL parsing (client-side pathname/search params) so `/b/[slug]/[node]` reflects the actual category and filter pills preserve `q` + `categoryId`.
 - Added skeleton loading for product details, guarded missing itemId calls, and made product details degrade gracefully on errors.
 
+## Latest Updates (2026-01-12)
+
+- Fixed product detail page params handling for Next.js 16 by using `useParams()` and removed dead loading branch in the title area.
+- Updated `/b/[slug]/[node]` and storefront pages to await async `params`/`searchParams` and resolve values safely.
+- Added empty state for category results when no listings and renamed local URLSearchParams var to avoid shadowing.
+- Hardened eBay client: encode item IDs in getItem URLs, add retry/backoff for 429/5xx/network errors, and allow zero-priced items in parser.
+- Sanitized eBay token error messages and added in-flight token refresh locking to avoid redundant OAuth calls.
+- Added getItem caching via Convex products table + TTL and fallback to `itemWebUrl` with warning when affiliate URLs are missing.
+- Clarified currency validation to `length(3)` and fixed a `class` -> `className` JSX error in reviews.
+
 ## Last Session (2026-01-07)
 
 ### Work Completed
