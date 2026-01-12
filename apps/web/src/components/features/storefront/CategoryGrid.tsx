@@ -9,21 +9,91 @@ import {
   CarouselPrevious,
 } from "@/components/ui/carousel";
 
-const CATEGORIES = [
-  { name: 'Electronics', slug: 'electronics', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuDvIJbDCq3SakeUuib470M0Ng58xHYC2_jwVeOqpPQUGecSu04OuJ75TR5v3H02LvsB_LchzQ8hxKHSzHGdVH1P2Zc5J-fajZHhRfIRnLdHywpgUC0qRU52t9Nj1daOiAJ1rEcPSze3CXDIW7zWkU3ALXbbPhPKN5WizIXGqMx8PGpjm5ETws7SOfM7h9AlkV8KD3s4HOTm22QFNfatU4s8VubQ6FVY-lddroJECD9Xm3ALm-6tA0f7Gv7Kkd4lELM-2j-mCSoytIg' },
-  { name: 'Fashion', slug: 'fashion', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAqO1vzglkyGo63PzHtpVb3Cw-Lox9VDAOYFJuHvcshPXTjMkwWDnMF4mAyxNMI3TzgvFrTTYedee_Hb7x-_PRmRgnzvyTE3Px7ar1ncqZMwQ1cblWicfC6L1XiIPPVOH0nl379XdmZm4jQrVOALgnxQ6uS-Xnr4Jh1o3fT1x_1Au8LmVWf7dAOjVRvrkAj6FRlj_D7IhWEPAUSCM7qRy975jp3JxVO1kP7b5j2rOrvUogwxfZp_bji9lFNLPI5HmSkvffKDT2ZUfw' },
-  { name: 'Home', slug: 'home', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAsUjl9IsSDixxMv-qdj8VIcgHeU_d8VNjrwBMlvdZzl_rOLk3chTd-eeS2xLDtX3Ps4bROFtuKyVAX1RVUY-d58Nc3UnCvYWQg4SIrERAjDQdY1QC_3GlzuUR6dlIyykANpclQiWARwAz7czSyJy-L4i01o5Gd0ttDzzMDBXMb7uhIvs08UHu8XLOSg6GiLklFP7o90aaxr-AtkUZuJMAiMK3qU2_Fq0Go756rhk9rxD-CrXjlb5y6tUc6btG4FShKqvElJfMXocU' },
-  { name: 'Beauty', slug: 'beauty', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuARAo3MbkVKLMTOBzj2CHCAejwgDB7ZqDFv4MXmCwdJAXWGO_YAE6IsDEN9v4yU90-Tjz59-b1ksvDuzAgoEeP64jZ7rNGSNzwTgEkPxfpJEm86DM95eoDRfTtsVooKAvHd-EzixqsA_cg3d5foE9mqwSd8uXhC4rBpXlisE3sT9yp1qd2fKy_6hhUSfKWnClwTRHcNBesqlljjNSUkeh7px1-B80B_t16mhjzkY2cu1rjJfLd5Oir6lhBULAE_MuYvtGC4VAOVELY' },
-  { name: 'Sports', slug: 'sports', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuCp5hMXO7RIjKKBcxtTQDBsZTHl2YMvUSnLMMC_VjPg6UL51JlPypNUenGH_9Y01drRDz3AmIu3I0_1kTajhzW5lFJ_bbHkbbNcYjI6l6CG0WpfKyNg684gE60-kaNYDfzMV3ifm3NumjrMV5EO6qLPee2L-htHgGaR0r0Np_Qmk0c7alRuZkVGthlK4HiN1YyLAmdmpknClcRedGUhu_uqeZgknl2u8EfU53AAqahTqxuUIVLT1iYbLZCAg9z_eHO3ArIZRIrmeT8' },
-  { name: 'Toys', slug: 'toys', image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuAtEjjUkqqFl8iKpJTUQi-KxqZ2rcN3ruqEv45uDj51Z3M73XEPuFafoyVf-8tCZ7KkVw9-eTRNWaOgmDaRPHW3BnBph2WFYtI7Ae0w1ua0pn4Nt5uogT2MY69LV1_rMUKjx0u23yP1PZOCX6lL8360B1RF9XhuGhwamj6GFdlrr9fdjtX_Z8Je5j_4FXritPFNlrrna4-2MdZ0TUvcBKIyonZaBWTlxtMXHybZAXGOVt-fcTphezBy-HG9rQRZ8Nx0xxGEhqz4BM' },
+type Category = {
+  name: string;
+  slug: string;
+  node: string;
+  query?: string;
+  categoryId?: string;
+  image: string;
+};
+
+const CATEGORIES: Category[] = [
+  {
+    name: "Electronics",
+    slug: "electronics",
+    node: "bn_7000259124",
+    categoryId: "293",
+    query: "electronics",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuDvIJbDCq3SakeUuib470M0Ng58xHYC2_jwVeOqpPQUGecSu04OuJ75TR5v3H02LvsB_LchzQ8hxKHSzHGdVH1P2Zc5J-fajZHhRfIRnLdHywpgUC0qRU52t9Nj1daOiAJ1rEcPSze3CXDIW7zWkU3ALXbbPhPKN5WizIXGqMx8PGpjm5ETws7SOfM7h9AlkV8KD3s4HOTm22QFNfatU4s8VubQ6FVY-lddroJECD9Xm3ALm-6tA0f7Gv7Kkd4lELM-2j-mCSoytIg",
+  },
+  {
+    name: "Fashion",
+    slug: "fashion",
+    node: "bn_fashion",
+    categoryId: "11450",
+    query: "clothing shoes accessories",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuAqO1vzglkyGo63PzHtpVb3Cw-Lox9VDAOYFJuHvcshPXTjMkwWDnMF4mAyxNMI3TzgvFrTTYedee_Hb7x-_PRmRgnzvyTE3Px7ar1ncqZMwQ1cblWicfC6L1XiIPPVOH0nl379XdmZm4jQrVOALgnxQ6uS-Xnr4Jh1o3fT1x_1Au8LmVWf7dAOjVRvrkAj6FRlj_D7IhWEPAUSCM7qRy975jp3JxVO1kP7b5j2rOrvUogwxfZp_bji9lFNLPI5HmSkvffKDT2ZUfw",
+  },
+  {
+    name: "Home",
+    slug: "home",
+    node: "bn_home",
+    categoryId: "11700",
+    query: "home decor furniture kitchen",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuAsUjl9IsSDixxMv-qdj8VIcgHeU_d8VNjrwBMlvdZzl_rOLk3chTd-eeS2xLDtX3Ps4bROFtuKyVAX1RVUY-d58Nc3UnCvYWQg4SIrERAjDQdY1QC_3GlzuUR6dlIyykANpclQiWARwAz7czSyJy-L4i01o5Gd0ttDzzMDBXMb7uhIvs08UHu8XLOSg6GiLklFP7o90aaxr-AtkUZuJMAiMK3qU2_Fq0Go756rhk9rxD-CrXjlb5y6tUc6btG4FShKqvElJfMXocU",
+  },
+  {
+    name: "Beauty",
+    slug: "beauty",
+    node: "bn_beauty",
+    categoryId: "26395",
+    query: "beauty skincare makeup",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuARAo3MbkVKLMTOBzj2CHCAejwgDB7ZqDFv4MXmCwdJAXWGO_YAE6IsDEN9v4yU90-Tjz59-b1ksvDuzAgoEeP64jZ7rNGSNzwTgEkPxfpJEm86DM95eoDRfTtsVooKAvHd-EzixqsA_cg3d5foE9mqwSd8uXhC4rBpXlisE3sT9yp1qd2fKy_6hhUSfKWnClwTRHcNBesqlljjNSUkeh7px1-B80B_t16mhjzkY2cu1rjJfLd5Oir6lhBULAE_MuYvtGC4VAOVELY",
+  },
+  {
+    name: "Sports",
+    slug: "sports",
+    node: "bn_sports",
+    categoryId: "382",
+    query: "sports equipment fitness",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuCp5hMXO7RIjKKBcxtTQDBsZTHl2YMvUSnLMMC_VjPg6UL51JlPypNUenGH_9Y01drRDz3AmIu3I0_1kTajhzW5lFJ_bbHkbbNcYjI6l6CG0WpfKyNg684gE60-kaNYDfzMV3ifm3NumjrMV5EO6qLPee2L-htHgGaR0r0Np_Qmk0c7alRuZkVGthlK4HiN1YyLAmdmpknClcRedGUhu_uqeZgknl2u8EfU53AAqahTqxuUIVLT1iYbLZCAg9z_eHO3ArIZRIrmeT8",
+  },
+  {
+    name: "Toys",
+    slug: "toys",
+    node: "bn_toys",
+    categoryId: "220",
+    query: "toys games kids",
+    image:
+      "https://lh3.googleusercontent.com/aida-public/AB6AXuAtEjjUkqqFl8iKpJTUQi-KxqZ2rcN3ruqEv45uDj51Z3M73XEPuFafoyVf-8tCZ7KkVw9-eTRNWaOgmDaRPHW3BnBph2WFYtI7Ae0w1ua0pn4Nt5uogT2MY69LV1_rMUKjx0u23yP1PZOCX6lL8360B1RF9XhuGhwamj6GFdlrr9fdjtX_Z8Je5j_4FXritPFNlrrna4-2MdZ0TUvcBKIyonZaBWTlxtMXHybZAXGOVt-fcTphezBy-HG9rQRZ8Nx0xxGEhqz4BM",
+  },
 ];
+
+const buildCategoryHref = (category: Category) => {
+  const params = new URLSearchParams();
+  if (category.query) params.set("q", category.query);
+  if (category.categoryId) params.set("categoryId", category.categoryId);
+  const query = params.toString();
+  return `/b/${category.slug}/${category.node}${query ? `?${query}` : ""}`;
+};
 
 export function CategoryGrid() {
   return (
     <section className="mb-16">
       <div className="flex items-center justify-between mb-8 px-2">
-        <h2 className="text-h2 font-semibold leading-tight text-[#181411] dark:text-white">Shop by Category</h2>
-        <Link href="/?category=all" className="text-primary font-bold text-sm-fluid hover:underline flex items-center gap-1">
+        <h2 className="text-h2 font-semibold leading-tight text-[#181411] dark:text-white">
+          Shop by Category
+        </h2>
+        <Link
+          href="/?category=all"
+          className="text-primary font-bold text-sm-fluid hover:underline flex items-center gap-1"
+        >
           View All <span className="material-symbols-outlined text-sm">arrow_forward</span>
         </Link>
       </div>
@@ -39,7 +109,10 @@ export function CategoryGrid() {
         <CarouselContent className="-ml-4">
           {CATEGORIES.map((cat) => (
             <CarouselItem key={cat.name} className="pl-4 basis-1/2 sm:basis-1/3">
-              <Link href={`/?category=${cat.slug}`} className="group flex flex-col items-center gap-4 text-center">
+              <Link
+                href={buildCategoryHref(cat)}
+                className="group flex flex-col items-center gap-4 text-center"
+              >
                 <div className="aspect-square w-full max-w-[140px] overflow-hidden rounded-full border-2 border-transparent group-hover:border-primary transition-all p-1">
                   <div className="relative h-full w-full rounded-full overflow-hidden">
                     <Image
@@ -62,7 +135,11 @@ export function CategoryGrid() {
       {/* Desktop Grid */}
       <div className="hidden md:grid md:grid-cols-3 lg:grid-cols-6 gap-6">
         {CATEGORIES.map((cat) => (
-          <Link key={cat.name} href={`/?category=${cat.slug}`} className="group flex flex-col items-center gap-4 text-center">
+          <Link
+            key={cat.name}
+            href={buildCategoryHref(cat)}
+            className="group flex flex-col items-center gap-4 text-center"
+          >
             <div className="aspect-square w-full max-w-[160px] overflow-hidden rounded-full border-2 border-transparent group-hover:border-primary transition-all p-1">
               <div className="relative h-full w-full rounded-full overflow-hidden">
                 <Image

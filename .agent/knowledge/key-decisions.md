@@ -212,3 +212,49 @@ sendcat/
 ```
 
 **Date:** 2026-01-07
+
+---
+
+## 11. eBay Launch Scope: EBAY_US, Fixed Price, Affiliate URLs
+
+**Decision:** Launch using the EBAY_US marketplace, fixed-price items only, and
+always prefer `itemAffiliateWebUrl` for outbound product links. Use
+`contextualLocation=country=JM` in `X-EBAY-C-ENDUSERCTX` to improve shipping
+estimates for Jamaica/Caribbean users.
+
+**Rationale:**
+- EBAY_US is the primary catalog for launch.
+- Auctions add UI complexity and are deferred.
+- Affiliate revenue requires using eBay-provided affiliate URLs.
+- Contextual location should improve shipping cost/availability relevance.
+
+**Date:** 2026-01-10
+
+---
+
+## 12. eBay Content Freshness Policy (Cache TTL)
+
+**Decision:** Align caching with eBay API License Agreement: item listing info
+must be no more than 6 hours old; other eBay content no more than 24 hours old.
+If content is older, disclose how old it is.
+
+**Rationale:**
+- Compliance with eBay content freshness requirements for display.
+- Sets clear TTLs for cache invalidation and UI disclosure.
+
+**Date:** 2026-01-10
+
+---
+
+## 13. Background Jobs Split: Inngest vs Convex
+
+**Decision:** Reserve Inngest for AI agent workflows only. Use Convex Actions +
+Scheduled Functions (and optional Workpool component) for regular eBay API
+calls and cache refreshes.
+
+**Rationale:**
+- Keep AI workflows isolated in Inngest for tracing/retries.
+- eBay data fetches are standard backend calls well-suited to Convex server
+functions and scheduling.
+
+**Date:** 2026-01-10

@@ -1,5 +1,171 @@
 # Completed Tasks Log
 
+## 2026-01-10 - Add eBay-style category browsing route
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/src/components/features/storefront/CategoryResults.tsx`
+- `apps/web/src/app/(storefront)/b/[slug]/[node]/page.tsx`
+- `apps/web/src/components/features/storefront/CategoryGrid.tsx`
+- `apps/web/src/components/features/storefront/index.ts`
+
+**Summary:**
+Created an eBay-inspired category results UI and URL structure. Added a new
+`/b/[slug]/[node]` route that maps filter query params (All, Buy It Now, Best
+Offer, Auction disabled) to Convex search filters and renders live listing
+results with filter pills. Updated category links to use the new path and added
+category node identifiers (real electronics node, placeholders for others).
+
+---
+
+## 2026-01-10 - Improve category results UX + product details
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/src/components/features/storefront/CategoryGrid.tsx`
+- `apps/web/src/components/features/storefront/CategoryResults.tsx`
+- `apps/web/src/app/(storefront)/b/[slug]/[node]/page.tsx`
+- `apps/web/src/app/(storefront)/products/[slug]/page.tsx`
+- `convex/products.ts`
+
+**Summary:**
+Added category-specific search queries, preserved query params across filter pills,
+replaced the loading text with skeleton cards, and improved category breadcrumbs.
+Product details now show live data (breadcrumbs, description, seller/condition, and
+gallery) instead of placeholder content when the eBay item loads. Updated the default
+Browse filter to include Best Offer alongside fixed price.
+
+---
+
+## 2026-01-12 - Harden eBay browsing + product detail reliability
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/src/app/(storefront)/products/[slug]/page.tsx`
+- `apps/web/src/app/(storefront)/b/[slug]/[node]/page.tsx`
+- `apps/web/src/app/(storefront)/page.tsx`
+- `apps/web/src/components/features/storefront/CategoryResults.tsx`
+- `packages/shared/src/api-clients/ebay/client.ts`
+- `packages/shared/src/api-clients/ebay/parser.ts`
+- `packages/shared/src/validation/products.ts`
+- `convex/ebay.ts`
+- `convex/products.ts`
+
+**Summary:**
+Fixed Next.js 16 async params usage (storefront + category pages), corrected product
+details to use `useParams()` (removing params Promise error), and added an empty state
+for zero-result category listings. Cleaned shadowed URLSearchParams and removed dead
+loading JSX.
+Hardened eBay client behavior (itemId encoding, retry/backoff, allow zero prices),
+sanitized token errors, and added in-flight token refresh locking. Added caching for
+getItem using the products table + TTL and fall back to `itemWebUrl` when affiliate URLs
+aren’t available. Updated currency validation and fixed a `class` -> `className` JSX typo.
+
+## 2026-01-10 - Wire real eBay category filtering
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/src/components/features/storefront/CategoryGrid.tsx`
+- `apps/web/src/components/features/storefront/CategoryResults.tsx`
+- `apps/web/src/app/(storefront)/b/[slug]/[node]/page.tsx`
+- `packages/shared/src/api-clients/ebay/client.ts`
+- `convex/products.ts`
+- `apps/web/src/app/(storefront)/products/[slug]/page.tsx`
+
+**Summary:**
+Added real eBay category IDs to the category grid and pass them in the URL.
+Category results now read slug + query params from the actual URL, preserve
+`q` and `categoryId` across filter pills, and send `category_ids` to eBay Browse
+via Convex for tighter filtering. Added product detail skeleton loading and a
+guard against missing itemId calls.
+
+---
+
+## 2026-01-10 - Wire eBay UI + Convex deployment
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `apps/web/src/components/features/storefront/FeaturedProducts.tsx`
+- `apps/web/src/app/(storefront)/products/[slug]/page.tsx`
+- `apps/web/package.json`
+- `apps/web/.env.local`
+- `package.json`
+- `convex/products.ts`
+- `bun.lock`
+
+**Summary:**
+Connected storefront UI to Convex actions: Featured Products now calls
+`api.products.search` and product details page calls `api.products.getItem`.
+Adjusted product detail CTA to open the affiliate link. Added workspace deps and
+Convex root dependency, fixed Convex type error, and successfully ran `bunx convex dev`.
+
+**Follow-up:**
+Switched `EBAY_ENV` to sandbox in Convex dev + `apps/web/.env.local`, and wired
+storefront search to use URL query/category parameters for live searches.
+
+---
+## 2026-01-10 - Verify eBay caching (content freshness) requirements
+
+**Status:** Completed
+**Summary:**
+Confirmed eBay API License Agreement requires displayed item listing info to be
+no more than 6 hours old and other eBay content no more than 24 hours old; if
+older, disclose the age. Updated plan + key decisions to align cache TTLs.
+
+---
+
+## 2026-01-10 - Fix Convex dev bundling conflict
+
+**Status:** Completed
+**Summary:**
+Removed stray compiled outputs in `convex/` that conflicted with Convex bundler,
+added `.gitignore` entries for `convex/*.js` and `convex/*.d.ts*`, and restarted
+`bunx convex dev` successfully.
+
+---
+## 2026-01-10 - Decide background jobs split (Inngest vs Convex)
+
+**Status:** Completed
+**Summary:**
+Confirmed that AI agent calls will run through Inngest only; regular eBay API
+calls will be handled by Convex actions/scheduled functions, with optional
+Workpool component if we need queueing or concurrency controls.
+
+**Follow-up:**
+Workpool deferred for now; start with Actions + Scheduled/Cron and add Workpool
+only if throughput requires it.
+
+---
+
+## 2026-01-10 - Implement eBay integration scaffolding (shared + Convex)
+
+**Status:** Completed
+**Files Modified/Created:**
+
+- `packages/shared/src/types/product.ts`
+- `packages/shared/src/validation/products.ts`
+- `packages/shared/src/api-clients/ebay/client.ts`
+- `packages/shared/src/api-clients/ebay/types.ts`
+- `packages/shared/src/api-clients/ebay/parser.ts`
+- `packages/shared/src/api-clients/ebay/affiliate.ts`
+- `packages/shared/src/index.ts`
+- `packages/shared/package.json`
+- `convex/ebay.ts`
+- `convex/products.ts`
+- `bun.lock`
+
+**Summary:**
+Added shared eBay client/types/parsing and Zod schemas, plus Convex actions for
+search + item lookup and internal mutation for caching. Included OAuth token
+handling, affiliate fallback builder, and EBAY_US contextual headers.
+
+---
+
 ## 2026-01-08 - Scaffold Expo mobile app + share Convex bindings
 
 **Status:** Completed

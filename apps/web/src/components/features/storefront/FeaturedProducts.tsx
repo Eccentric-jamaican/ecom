@@ -1,17 +1,36 @@
-import Image from 'next/image';
-import Link from 'next/link';
+"use client";
+
+import Image from "next/image";
+import Link from "next/link";
+import { useAction } from "convex/react";
+import { useEffect, useMemo, useState } from "react";
+import { api } from "@sendcat/convex";
+import type { ProductListing } from "@sendcat/shared";
 import {
   Carousel,
   CarouselContent,
   CarouselItem,
 } from "@/components/ui/carousel";
 
-const PRODUCTS = [
-  { 
-    id: 1,        
+type DisplayProduct = {
+  id: string;
+  slug: string;
+  name: string;
+  price: number;
+  currency?: string;
+  originalPrice?: number | null;
+  image: string;
+  desc: string;
+  badge?: string | null;
+  badgeColor?: string;
+};
+
+const FALLBACK_PRODUCTS: DisplayProduct[] = [
+  {
+    id: "fallback-1",
     slug: 'vintage-leather-backpack',
-    name: 'Vintage Leather Backpack', 
-    price: 120.00, 
+    name: 'Vintage Leather Backpack',
+    price: 120.00,
     originalPrice: 150.00, 
     image: 'https://lh3.googleusercontent.com/aida-public/AB6AXuBgc1FXDXWQ7ZOayixs7ukCsQCeKrRt1rV5H9P_NSniPqKBMpDT53oWIFx84q-fMkW5GFseDjoiK_5bSh5ZtxDQuIppIhfrC1XxUHaf5aKg-qE-KAEdPR4ZjMtO_YH-38YgfsikPi128znpYev-m7fjaXvhDYbTFIwlRRiHodK1MUR7hywmzSBDb-gqPPdJ6XYC1UrNZ5osZflggF5ayEqU1OwemvXlyFnNkEVFUuuEvlo3LluhG7ujc9AaIR3g1nHIxSFo_3QOu9M',
     desc: 'Durable, stylish, and perfect for your daily commute.',
@@ -19,7 +38,7 @@ const PRODUCTS = [
     badgeColor: 'bg-red-500'
   },
   { 
-    id: 2, 
+    id: "fallback-2",
     slug: 'noise-cancelling-headphones',
     name: 'Noise Cancelling Headphones', 
     price: 299.00, 
@@ -30,7 +49,7 @@ const PRODUCTS = [
     badgeColor: 'bg-blue-500'
   },
   { 
-    id: 3,
+    id: "fallback-3",
     slug: 'minimalist-white-sneakers',
     name: 'Minimalist White Sneakers',
     price: 89.99, 
@@ -39,8 +58,8 @@ const PRODUCTS = [
     desc: 'Clean design, maximum comfort for everyday wear.',
     badge: null
   },
-  { 
-    id: 4, 
+  {
+    id: "fallback-4",
     slug: 'series-7-smart-watch',
     name: 'Series 7 Smart Watch',
     price: 399.00, 
@@ -51,7 +70,60 @@ const PRODUCTS = [
   }
 ];
 
-export function FeaturedProducts() {
+export function FeaturedProducts({ query }: { query?: string }) {
+  const searchQuery = query?.trim() ? query.trim() : "electronics";
+  const search = useAction(api.products.search);
+  const [items, setItems] = useState<ProductListing[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+
+  useEffect(() => {
+    let active = true;
+    setIsLoading(true);
+    setError(null);
+
+    search({ query: searchQuery, limit: 8 })
+      .then((result) => {
+        if (!active) return;
+        setItems(result.products);
+      })
+      .catch((err) => {
+        if (!active) return;
+        setError(err instanceof Error ? err.message : "Failed to load items");
+      })
+      .finally(() => {
+        if (!active) return;
+        setIsLoading(false);
+      });
+
+    return () => {
+      active = false;
+    };
+  }, [search, searchQuery]);
+
+  const displayProducts = useMemo<DisplayProduct[]>(() => {
+    if (!items.length) return FALLBACK_PRODUCTS;
+    return items.map((item) => ({
+      id: item.id,
+      slug: item.id,
+      name: item.title,
+      price: item.price.value,
+      currency: item.price.currency,
+      originalPrice: null,
+      image: item.imageUrl,
+      desc: item.condition ? `Condition: ${item.condition}` : "View details on eBay.",
+      badge: "eBay",
+      badgeColor: "bg-amber-500",
+    }));
+  }, [items]);
+
+  const formatPrice = (value: number, currency?: string) =>
+    new Intl.NumberFormat("en-US", {
+      style: "currency",
+      currency: currency ?? "USD",
+      maximumFractionDigits: 2,
+    }).format(value);
+
   return (
     <section className="mb-16">
       <div className="flex flex-col md:flex-row md:items-end justify-between mb-8 px-2 gap-4">
@@ -59,6 +131,12 @@ export function FeaturedProducts() {
           <h2 className="text-h2 font-semibold leading-tight text-[#181411] dark:text-white">Featured Products</h2>
           <p className="text-body leading-relaxed text-muted-foreground mt-1">Handpicked items just for you</p>
         </div>
+
+        {error ? (
+          <span className="text-sm text-red-600 font-medium">Unable to load live items.</span>
+        ) : isLoading ? (
+          <span className="text-sm text-muted-foreground">Loading “{searchQuery}” results…</span>
+        ) : null}
         
         <div className="flex gap-2 overflow-x-auto hide-scrollbar pb-1">
           <button className="px-4 py-2 bg-primary text-white rounded-lg text-sm font-semibold whitespace-nowrap">All Items</button>
@@ -77,7 +155,7 @@ export function FeaturedProducts() {
         className="w-full md:hidden"
       >
         <CarouselContent className="-ml-4">
-          {PRODUCTS.map((product) => (
+          {displayProducts.map((product) => (
             <CarouselItem key={product.id} className="pl-4 basis-1/2 sm:basis-1/3">
               <div className="group flex flex-col bg-white dark:bg-[#1a1a1a] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-[#333]">
                 <Link href={`/products/${product.slug}`} className="block">
@@ -106,9 +184,9 @@ export function FeaturedProducts() {
                   <div className="mt-2 flex items-center justify-between">
                     <div className="flex flex-col">
                       {product.originalPrice && (
-                        <span className="text-xs text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>
+                        <span className="text-xs text-muted-foreground line-through">{formatPrice(product.originalPrice, product.currency)}</span>
                       )}
-                      <span className="text-primary font-bold text-sm md:text-base">${product.price.toFixed(2)}</span>
+                      <span className="text-primary font-bold text-sm md:text-base">{formatPrice(product.price, product.currency)}</span>
                     </div>
                     <button className="p-2 bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-lg transition-colors" type="button">
                       <span className="material-symbols-outlined text-sm">add_shopping_cart</span>
@@ -123,7 +201,7 @@ export function FeaturedProducts() {
 
       {/* Desktop Grid */}
       <div className="hidden md:grid md:grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-10">
-        {PRODUCTS.map((product) => (
+        {displayProducts.map((product) => (
           <div key={product.id} className="group flex flex-col bg-white dark:bg-[#1a1a1a] rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 dark:border-[#333]">
             <div className="relative aspect-square md:aspect-[3/4] overflow-hidden bg-slate-100">
               <Link href={`/products/${product.slug}`} className="block h-full w-full">
@@ -157,9 +235,9 @@ export function FeaturedProducts() {
               <div className="mt-auto flex items-center justify-between">
                 <div className="flex flex-col">
                   {product.originalPrice && (
-                    <span className="text-sm-fluid text-muted-foreground line-through">${product.originalPrice.toFixed(2)}</span>
+                    <span className="text-sm-fluid text-muted-foreground line-through">{formatPrice(product.originalPrice, product.currency)}</span>
                   )}
-                  <span className="text-primary font-bold text-fluid-price">${product.price.toFixed(2)}</span>
+                  <span className="text-primary font-bold text-fluid-price">{formatPrice(product.price, product.currency)}</span>
                 </div>
                 <button className="p-2.5 bg-primary/10 hover:bg-primary text-primary hover:text-white rounded-lg transition-colors" type="button">
                   <span className="material-symbols-outlined">add_shopping_cart</span>
